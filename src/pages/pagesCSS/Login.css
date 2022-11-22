@@ -1,0 +1,22 @@
+.loginFields {
+    text-align: center;
+}
+
+.infoAlert {
+    width: 75%;
+    min-width: 300px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.invalidAlert {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    min-width: 300px;
+}

@@ -1,25 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { Component} from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import {BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Navbar from "./pages/Navbar";
+import Login from "./pages/Login";
+import Welcome from "./pages/Welcome";
+import Detections from "./pages/Detections";
+import NoPage from "./pages/NoPage";
+
+import withNavigation from './components/WithNavigation';
+import withParams from './components/WithParams';
+
+class App extends Component {
+  
+  render() {
+    const LoginWithNavigation = withNavigation(Login);
+    const WelcomeWithParams = withParams(Welcome);
+    const DetectionsWithParams = withParams(Detections);
+    return (
+      <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navbar />}>
+            <Route index element={<LoginWithNavigation />} />
+            <Route path="login" element={<LoginWithNavigation />} />
+            <Route path="welcome/:name/:id" element={<WelcomeWithParams/>} />
+            <Route path="detections/" element={<DetectionsWithParams/>} />
+            <Route path="*" element={<NoPage/>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+      </div> 
+    )
+  }
 }
 
 export default App;
