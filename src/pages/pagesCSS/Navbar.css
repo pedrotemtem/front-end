@@ -1,0 +1,29 @@
+.appbar {
+    margin-bottom: 25px;
+}
+
+.toolbar {
+    background-color: purple;
+}
+
+.navLink {
+    text-decoration: none;
+    color: white;
+}
+
+.navLink:visited {
+    color: white;
+}
+
+.navLink:active {
+    color: black;
+}
+
+.navLink:hover {
+    background-color: #D4CEF3;
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+    
+}
+
