@@ -12,6 +12,7 @@ export default class Login extends Component {
             password: "",
             rightPassword: "_",
             username: "",
+            analystID: 0,
             hasLoginFailed: false,
             showSuccessMessage: false,
             analystsInfo : {}
@@ -47,6 +48,12 @@ export default class Login extends Component {
                         username:obj["name"]
                     }
                 )
+                this.setState(
+                    {
+                        id:obj["id"]
+                    }
+                )
+
             }
         }
         )
@@ -55,7 +62,7 @@ export default class Login extends Component {
             this.setState({rightPassword:"_"})
             this.setState({showSuccessMessage:true})
             this.setState({hasLoginFailed:false})
-            this.props.navigate(`/welcome/{${this.state.username},}`)
+            this.props.navigate(`/welcome/${this.state.username}/${this.state.id}`)
             
         }
         else {
