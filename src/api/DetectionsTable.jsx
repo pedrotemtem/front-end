@@ -133,6 +133,8 @@ class DetectionsTable extends React.Component {
 
     saveInDatabase(){
         console.log('Success')
+        console.log('Success2')
+
     }
 }
 
