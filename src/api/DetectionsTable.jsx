@@ -95,12 +95,46 @@ const columns = [
   },
 ];
 
+const columnsAudit = [
+    {
+        field: 'id',
+        headerName: 'ID',
+        width: 110,
+    },
+
+    {
+        field: 'date_time',
+        headerName: 'Date time',
+        width: 110,
+    },
+
+    {
+        field: 'parameter',
+        headerName: 'Parameter',
+        width: 110,
+    },
+
+    {
+        field: 'marketplace_detections_id',
+        headerName: 'Detection Id',
+        width: 110,
+    },
+    
+    {
+        field: 'marketplace_detections_id',
+        headerName: 'Detection Id',
+        width: 110,
+    },
+
+];
 
 class DetectionsTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            detections: []
+            detections: [],
+            detectionId: 0,
+            audit: []
         }
     }
     componentDidMount() {
@@ -118,17 +152,48 @@ class DetectionsTable extends React.Component {
  
     render() {
         return (
-            <><Box sx={{ height: 650, width: '100%' }}>
-                <DataGrid
-                    rows={this.state.detections}
-                    columns={columns}
-                    pageSize={10}
-                    rowsPerPageOptions={[10]}
-                    checkboxSelection
-                    disableSelectionOnClick
-                    experimentalFeatures={{ newEditingApi: true }}
-                    onSelectionModelChange={(detections) => console.log(detections)} />
-            </Box><Button variant="outlined" onClick={this.saveInDatabase}> Update </Button></>
+            <>
+                <Box sx={{ height: 650, width: '100%' }}>
+                    <DataGrid
+                        rows={this.state.detections}
+                        columns={columns}
+                        pageSize={10}
+                        rowsPerPageOptions={[10]}
+                        checkboxSelection
+                        disableSelectionOnClick
+                        experimentalFeatures={{ newEditingApi: true }}
+                        onCellClick={detectionRow => {
+                            this.state.detectionId= detectionRow.id;
+                            fetch(`Colocar isto com o detectionId/${this.state.detectionId}`)
+                            .then(res => res.json())
+                            .then(
+                            (detectionAudit) => {
+                                this.setState({ detectionAudit : detectionAudit });
+                            },
+                            (error) => {
+                                alert(error);
+                            }
+                            )
+                        }} 
+                    />
+                </Box>
+
+                <Button variant="outlined" onClick={this.saveInDatabase}> Update </Button>
+            
+                <Box sx={{ height: 400, width: '100%' }}>
+                    <DataGrid
+                        rows={this.state.audit}
+                        columns={columnsAudit}
+                        pageSize={5}
+                        rowsPerPageOptions={[5]}
+                        checkboxSelection
+                        disableSelectionOnClick
+                        experimentalFeatures={{ newEditingApi: true }}
+                    />
+                </Box>
+            
+            
+            </>
     )}
 
     saveInDatabase(){
