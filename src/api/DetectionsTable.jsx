@@ -121,8 +121,8 @@ const columnsAudit = [
     },
     
     {
-        field: 'marketplace_detections_id',
-        headerName: 'Detection Id',
+        field: 'analysts_id',
+        headerName: 'Analyst Id',
         width: 110,
     },
 
