@@ -54,6 +54,8 @@ export default class Login extends Component {
                     }
                 )
 
+            console.log(this.state.username)
+            console.log(this.state.id)
             }
         }
         )

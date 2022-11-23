@@ -12,7 +12,6 @@ export default function Navbar () {
                     </Typography>
                     <Stack direction="row" spacing={2}>
                         <Button color="inherit"><Link className="navLink" to="/login">Login</Link></Button>
-                        <Button color="inherit" ><Link className="navLink" to="/detections">Detections</Link></Button>
                     </Stack>
                 </Toolbar>
             </AppBar>
