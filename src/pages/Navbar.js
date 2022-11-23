@@ -1,9 +1,10 @@
+import React, {Component} from "react";
 import {Outlet, Link} from "react-router-dom";
 import { AppBar, Toolbar, Typography, Stack, Button } from "@mui/material";
 import "./pagesCSS/Navbar.css";
 
 export default function Navbar () {
-    return (
+        return (
         <div>
             <AppBar position="static" className="appbar">
                 <Toolbar className="toolbar">
