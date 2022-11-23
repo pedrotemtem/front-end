@@ -7,37 +7,13 @@ export default class Login extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            email: "admin@tracer.ai",
-            password: "",
-            rightPassword: "_",
-            username: "",
-            analystID: 0,
-            hasLoginFailed: false,
-            showSuccessMessage: false,
-            analystsInfo : {}
-        }
-
         this.handleEmailChange = this.handleEmailChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.loginClicked = this.loginClicked.bind(this)
     }
 
-    componentDidMount() {
-        fetch("http://localhost:8008/api/analysts/getAll")
-        .then((response) => response.json())
-        .then((data) => {
-            this.setState(
-                {
-                    analystsInfo: data
-                }
-            )
-        }
-        )
-    }
-
     loginClicked() {
-        
+
         this.state.analystsInfo.map(obj => {
             if (obj["email"] === this.state.email) {
                 this.setState({
@@ -75,11 +51,12 @@ export default class Login extends Component {
 
 
     render() {
-
+        console.log(this.props.analystsInfo)
         return (
+
             <div className="loginFields">
 
-                <br />
+              <br />
                 {/* // if this.state.hasLoginFailed is true, then the second part is returned
                     the same logic applies for this.state.showSuccessMessage */}
                 <div className="infoAlert">
@@ -90,7 +67,7 @@ export default class Login extends Component {
                 </Alert>
                 </div>
 
-                {this.state.hasLoginFailed && <div className="invalidAlert"><Alert severity="error" variant="filled"><AlertTitle>Something went wrong...</AlertTitle>
+                {/*{this.state.hasLoginFailed && <div className="invalidAlert"><Alert severity="error" variant="filled"><AlertTitle>Something went wrong...</AlertTitle>
                Please check your credentials and try again! <strong>If the error persists, contact your manager</strong></Alert></div>}
 
                 <br />
@@ -105,7 +82,7 @@ export default class Login extends Component {
                 <AlertTitle>Not registered?</AlertTitle>
                 Please ask <strong>your manager</strong> to register you in the database.
                 </Alert>
-                </div>}
+                </div>} */}
             </div>
 
         )
