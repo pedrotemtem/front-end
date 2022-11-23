@@ -4,6 +4,7 @@ import { AppBar, Toolbar, Typography, Stack, Button } from "@mui/material";
 import "./pagesCSS/Navbar.css";
 
 export default function Navbar () {
+    
         return (
         <div>
             <AppBar position="static" className="appbar">
