@@ -25,8 +25,8 @@ class App extends Component {
           <Route path="/" element={<Navbar />}>
             <Route index element={<LoginWithNavigation />} />
             <Route path="login" element={<LoginWithNavigation />} />
-            <Route path="welcome/:name/:id" element={<WelcomeWithParams/>} />
-            <Route path="detections/" element={<DetectionsWithParams/>} />
+            <Route path="welcome/:name/:analystId" element={<WelcomeWithParams/>} />
+            <Route path="/detections/:analystId" element={<DetectionsWithParams/>} />
             <Route path="*" element={<NoPage/>} />
           </Route>
         </Routes>
