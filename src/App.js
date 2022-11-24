@@ -66,6 +66,7 @@ class App extends Component {
             <Route path="/detections/" element={this.state.isLoggedIn? <DetectionsWithParams {...this.state}/> : <Navigate replace to={"/login"} />} />
             <Route path="*" element={<NoPage/>} />
           </Route>
+          <Route path="/" element={<div>Test</div>}></Route>
         </Routes>
       </BrowserRouter>
     </div> 
