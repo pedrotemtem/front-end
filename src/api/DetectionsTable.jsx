@@ -165,7 +165,7 @@ class DetectionsTable extends React.Component {
                         checkboxSelection
                         disableSelectionOnClick
                         experimentalFeatures={{ newEditingApi: true }}
-                        onCellClick={detectionRow => {
+                        /*onCellClick={detectionRow => {
                             this.state.detectionId= detectionRow.id;
                             fetch(`Colocar isto com o detectionId/${this.state.detectionId}`)
                             .then(res => res.json())
@@ -177,11 +177,11 @@ class DetectionsTable extends React.Component {
                                 alert(error);
                             }
                             )
+                        }}*/
+                        onSelectionModelChange = {id => {
+                          this.state.detectionId= id
+                          console.log(this.state.detectionId)
                         }}
-                        onSelectionModelChange = {(ids) => {
-                          setSelectionModel(ids);
-                          console.log(selectionModel);}
-                        }
                     />
 
                 </Box>
