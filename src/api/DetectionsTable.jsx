@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Button} from 'react-bootstrap'
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGridPro } from '@mui/x-data-grid-pro';
 import Box from '@mui/material/Box';
 import './DetectionsTable.css'
 
@@ -79,6 +79,8 @@ const columns = [
     sortable: true,
     width: 160,
     editable: true,
+    type: 'singleSelect',
+    valueOptions: ['test','test2']
   },
   {
     field: 'state',
@@ -154,9 +156,10 @@ class DetectionsTable extends React.Component {
         return (
             <>
                 <Box sx={{ height: 650, width: '100%' }}>
-                    <DataGrid
+                    <DataGridPro
                         rows={this.state.detections}
                         columns={columns}
+                        pagination
                         pageSize={10}
                         rowsPerPageOptions={[10]}
                         checkboxSelection
@@ -175,15 +178,21 @@ class DetectionsTable extends React.Component {
                             }
                             )
                         }}
+                        onSelectionModelChange = {(ids) => {
+                          setSelectionModel(ids);
+                          console.log(selectionModel);}
+                        }
                     />
+
                 </Box>
 
                 <Button variant="outlined" onClick={this.saveInDatabase}> Update </Button>
             
                 <Box sx={{ height: 400, width: '100%' }}>
-                    <DataGrid
+                    <DataGridPro
                         rows={this.state.audit}
                         columns={columnsAudit}
+                        pagination
                         pageSize={5}
                         rowsPerPageOptions={[5]}
                         checkboxSelection
