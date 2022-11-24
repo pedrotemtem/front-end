@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DetectionsTable from './DetectionsTable.jsx'
+import FullFeaturedCrudGrid from './NewDetectionsWithUpdates.jsx';
 import {Button} from 'react-bootstrap'
 import './Detections.css';
 import '../bootstrap.css';
@@ -10,7 +11,8 @@ class Detections extends Component {
     return (
       <div className="Detections">
         Detections:
-        <DetectionsTable></DetectionsTable>
+        {/*<DetectionsTable></DetectionsTable>*/}
+        <FullFeaturedCrudGrid></FullFeaturedCrudGrid>
         
         
       </div>
