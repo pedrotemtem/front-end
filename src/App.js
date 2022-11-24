@@ -19,7 +19,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      email: "admin@tracer.ai",
+      email: "",
       password: "",
       rightPassword: "_",
       username: "",
@@ -35,9 +35,7 @@ class App extends Component {
 
   setNewState (newState) {
     this.setState(
-      {
         newState
-      }
     )
   }
   
@@ -58,14 +56,13 @@ class App extends Component {
     const LoginWithNavigation = withNavigation(Login);
     const WelcomeWithParams = withParams(Welcome);
     const DetectionsWithParams = withParams(Detections);
-
     return (
       <div>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navbar />}>
             <Route index element={<LoginWithNavigation {...this.state} stateChanger = {this.setNewState}/>} />
-            <Route path="login" element={<LoginWithNavigation {...this.state} stateChanger = {this.setNewState}/>} />
+            <Route path="/login/" element={<LoginWithNavigation {...this.state} stateChanger = {this.setNewState}/>} />
             <Route path="/welcome/" element={<WelcomeWithParams {...this.state}/>} />
             <Route path="/detections/" element={<DetectionsWithParams {...this.state}/>} />
             <Route path="*" element={<NoPage/>} />

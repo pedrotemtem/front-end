@@ -15,7 +15,7 @@ export default class Welcome extends Component {
     render() {
         return (
             <div className="bigDiv">
-                <div className="welcome"> Welcome back, <span className="analystName">{this.props.params["name"]}</span>!</div>
+                <div className="welcome"> Welcome back, <span className="analystName">{this.props.params["name"]}</span>! {this.props.username}</div>
                 <div className="redirectId">
                 <div className="redirect"> To check your detections, please <Link to={this.state.path}>click here</Link></div>
                 <div className="idDiv">Please note that any changes you do will be recorded with your <span className="analystId">analyst ID: {this.props.params["analystId"]}</span></div>
