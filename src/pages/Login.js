@@ -13,17 +13,36 @@ export default class Login extends Component {
             localRightPassword: "",
             localUsername: "",
             localId: 0,
-            localHasLoginFailed: false,
-            localShowSuccessMessage: false
-            
+            localHasLoginFailed: false
         }
 
         this.handleEmailChange = this.handleEmailChange.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.loginClicked = this.loginClicked.bind(this)
+        this.checkCredentials = this.checkCredentials.bind(this)
+    }
+
+    checkCredentials() {
+        if(this.state.localPassword===this.state.localRightPassword && this.state.localPassword.length > 0) {
+            this.props.navigate(`/welcome/`)
+            this.props.stateChanger({
+                rightPassword: this.state.localRightPassword,
+                username: this.state.localUsername,
+                analystID: this.state.localId,
+                email: this.state.localEmail,
+                password: this.state.localPassword,
+                isLoggedIn: true
+            })
+            
+        }
+        else {
+            this.setState({localHasLoginFailed:true})
+        }
     }
 
     loginClicked() {
+
+        // by using checkCredentials inside the setState
 
         this.props.analystsInfo.map(obj => {
             if (obj["email"] === this.state.localEmail) {
@@ -32,28 +51,11 @@ export default class Login extends Component {
                         localRightPassword: obj["password"],
                         localUsername: obj["name"],
                         localId: obj["id"]
-                    }
+                    }, () => {this.checkCredentials()}
                 )
             }    
-        }
+        }   
         )
-
-        if(this.state.localPassword===this.state.localRightPassword) {
-            this.props.navigate(`/welcome/`)
-            this.props.stateChanger({
-                rightPassword: this.state.localRightPassword,
-                username: this.state.localUsername,
-                id: this.state.localId,
-                email: this.state.localEmail,
-                password: this.state.localPassword
-            })
-            
-        }
-        else {
-            console.log("set login fail")
-            this.setState({showSuccessMessage:false})
-            this.setState({localHasLoginFailed:true})
-        }
     }
 
     render() {
@@ -96,9 +98,11 @@ export default class Login extends Component {
     }
 
     handleEmailChange(event) {
-        this.setState({
+        this.setState(
+            {
             localEmail: event.target.value
-        })
+        }
+        )
     }
 
     handlePasswordChange(event) {
@@ -109,12 +113,3 @@ export default class Login extends Component {
         )
     }
 }
-
-{/*
-    this.props.stateChanger({
-        rightPassword: obj["password"],
-        username: obj["name"],
-        id: obj["id"],
-        password: local password ok
-    })
-*/}
