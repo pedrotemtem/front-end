@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import "./pagesCSS/Login.css"
 import { TextField, Button, Alert, AlertTitle } from "@mui/material";
+import image from "./images/loginImage.jpeg";
 
 export default class Login extends Component {
     
@@ -13,7 +14,8 @@ export default class Login extends Component {
             localRightPassword: "",
             localUsername: "",
             localId: 0,
-            localHasLoginFailed: false
+            localHasLoginFailed: false,
+            emailNotFound: true
         }
 
         this.handleEmailChange = this.handleEmailChange.bind(this)
@@ -42,7 +44,8 @@ export default class Login extends Component {
 
     loginClicked() {
 
-        // by using checkCredentials inside the setState
+        // setState is async. Therefore, by calling checkCredentials this way, we ensure
+        // that this funntion is only called when the state is properly set.
 
         this.props.analystsInfo.map(obj => {
             if (obj["email"] === this.state.localEmail) {
@@ -50,12 +53,17 @@ export default class Login extends Component {
                     {
                         localRightPassword: obj["password"],
                         localUsername: obj["name"],
-                        localId: obj["id"]
+                        localId: obj["id"],
+                        emailNotFound: false
                     }, () => {this.checkCredentials()}
                 )
             }    
         }   
         )
+
+        if (this.state.emailNotFound) {
+            this.setState({localHasLoginFailed:true})
+        }
     }
 
     render() {
@@ -65,15 +73,7 @@ export default class Login extends Component {
               <br />
                 {/* // if this.state.hasLoginFailed is true, then the second part is returned
                     the same logic applies for this.state.showSuccessMessage */}
-                <div className="infoAlert">
-                <Alert severity="info" color="success" variant="filled">
-                <AlertTitle>Please note</AlertTitle>
-                We ask you to click the <strong>login button twice</strong>, after inserting your credentials.
-                <strong> Only if the error persists</strong> should you check your credentials again. Thanks.
-                </Alert>
-                </div>
-
-
+                
                 {this.state.localHasLoginFailed && <div className="invalidAlert"><Alert severity="error" variant="filled"><AlertTitle>Something went wrong...</AlertTitle>
                Please check your credentials and try again! <strong>If the error persists, contact your manager</strong></Alert></div>}
 
@@ -86,12 +86,7 @@ export default class Login extends Component {
                 <Button style={{backgroundColor: "purple"}} size="large" variant="contained" onClick={this.loginClicked}>Log in</Button>
                 </form>
 
-                {this.state.localHasLoginFailed && <div className="infoAlert">
-                <Alert severity="info">
-                <AlertTitle>Not registered?</AlertTitle>
-                Please ask <strong>your manager</strong> to register you in the database.
-                </Alert>
-                </div>}
+                <img src={image} alt="magnifying glass over web pages" className="image"/>
             </div>
 
         )
