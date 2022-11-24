@@ -1,7 +1,7 @@
 import './App.css';
 import React, { Component} from 'react';
 
-import {BrowserRouter, Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Navbar from "./pages/Navbar";
 import Login from "./pages/Login";
@@ -11,7 +11,6 @@ import NoPage from "./pages/NoPage";
 
 import withNavigation from './components/WithNavigation';
 import withParams from './components/WithParams';
-import { toHaveDisplayValue } from '@testing-library/jest-dom/dist/matchers';
 
 class App extends Component {
 
@@ -25,7 +24,7 @@ class App extends Component {
       username: "",
       analystID: 0,
       hasLoginFailed: false,
-      showSuccessMessage: false,
+      isLoggedIn: false,
       analystsInfo : {}
     }
 
@@ -60,11 +59,11 @@ class App extends Component {
       <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Navbar />}>
+          <Route path="/" element={<Navbar {...this.state} stateChanger={this.setNewState}/>}>
             <Route index element={<LoginWithNavigation {...this.state} stateChanger = {this.setNewState}/>} />
             <Route path="/login/" element={<LoginWithNavigation {...this.state} stateChanger = {this.setNewState}/>} />
-            <Route path="/welcome/" element={<WelcomeWithParams {...this.state}/>} />
-            <Route path="/detections/" element={<DetectionsWithParams {...this.state}/>} />
+            <Route path="/welcome/" element={this.state.isLoggedIn ? <WelcomeWithParams {...this.state}/> : <Navigate replace to={"/login"} />} />
+            <Route path="/detections/" element={this.state.isLoggedIn? <DetectionsWithParams {...this.state}/> : <Navigate replace to={"/login"} />} />
             <Route path="*" element={<NoPage/>} />
           </Route>
         </Routes>
@@ -76,7 +75,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-{ /*
-setEmailState={this.setEmailState} setPasswordState={this.setPasswordState} setRightPasswordState={this.setRightPasswordState} setUsername = {this.setUsername} setAnalystID = {this.setAnalystID} setHasLoginFailed = {this.setHasLoginFailed} setShowSuccessMessage = {this.setShowSuccessMessage} */}

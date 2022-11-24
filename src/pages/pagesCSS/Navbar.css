@@ -15,15 +15,12 @@
     color: white;
 }
 
-.navLink:active {
-    color: black;
+.userMail {
+    font-size: 13px;
+    color: white;
+    text-transform: lowercase;
 }
 
-.navLink:hover {
-    background-color: #D4CEF3;
-    color: black;
-    font-weight: bold;
-    font-size: 15px;
-    
+.userMail:first-letter {
+    text-transform: capitalize;
 }
-
