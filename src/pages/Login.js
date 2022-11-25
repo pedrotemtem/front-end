@@ -86,7 +86,7 @@ export default class Login extends Component {
                 <Button style={{backgroundColor: "purple"}} size="large" variant="contained" onClick={this.loginClicked}>Log in</Button>
                 </form>
 
-                <img src={image} alt="magnifying glass over web pages" className="image"/>
+                <img src={image} alt="magnifying glass over web pages" className="loginImage"/>
             </div>
 
         )
