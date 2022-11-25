@@ -14,7 +14,7 @@ export default class Welcome extends Component {
                 <div className="idDiv">Please note that any changes you do will be recorded with your <span className="analystId">analyst ID</span></div>
                 </div>
 
-                <img src={image} alt="magnifying glass over web pages" className="image"/>
+                <img src={image} alt="magnifying glass over web pages" className="loginImage"/>
             </div>
 
 

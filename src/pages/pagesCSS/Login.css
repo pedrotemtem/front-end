@@ -11,14 +11,14 @@
     min-width: 300px;
 }
 
-.image {
+.loginImage {
     width: 400px;
     height: 250px;
     margin-top: 20px;
     animation-name: rotate;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
-    animation-duration: 4.5s;
+    animation-duration: 3.5s;
 }
 
 @keyframes rotate {
