@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Welcome from "./pages/Welcome";
 import Detections from "./pages/Detections";
 import NoPage from "./pages/NoPage";
+import Footer from "./pages/Footer";
 
 import withNavigation from './components/WithNavigation';
 import withParams from './components/WithParams';
@@ -66,8 +67,8 @@ class App extends Component {
             <Route path="/detections/" element={this.state.isLoggedIn? <DetectionsWithParams {...this.state}/> : <Navigate replace to={"/login"} />} />
             <Route path="*" element={<NoPage/>} />
           </Route>
-          <Route path="/" element={<div>Test</div>}></Route>
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div> 
 

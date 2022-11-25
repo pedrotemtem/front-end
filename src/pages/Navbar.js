@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {Outlet, Link} from "react-router-dom";
 import { AppBar, Toolbar, Typography, Stack, Button } from "@mui/material";
 import "./pagesCSS/Navbar.css";
-import Login from "./Login";
 
 export default class Navbar extends Component {
 
@@ -44,7 +43,7 @@ export default class Navbar extends Component {
             <AppBar position="static" className="appbar">
                 <Toolbar className="toolbar">
                     <Typography variant="h6" component="div" sx={{flexGrow:1}}>
-                        Tracer Portal
+                        Tracing Portal
                     </Typography>
                     <Stack direction="row" spacing={2}>
                         {this.LoginButton()}
