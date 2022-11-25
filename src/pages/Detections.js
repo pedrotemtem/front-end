@@ -12,7 +12,7 @@ import {Button} from "@mui/material";
 import './pagesCSS/DetectionsTable.css';
 
 const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
+    { field: 'id', headerName: 'ID', width: 40 },
     {
       field: 'title',
       headerName: 'Title',
@@ -32,10 +32,10 @@ const columns = [
     },
     {
       field: 'image_url',
-      headerName: 'Image Url',
+      headerName: 'Detection Image',
       sortable: false,
-      width: 200,
-      renderCell: (params) =><img src= {params.value} className="image" height="50px"/>,
+      width: 150,
+      renderCell: (params) =><img src={params.value} alt="" className="image" height="50px"/>,
     },
     {
       field: 'price',
@@ -52,11 +52,11 @@ const columns = [
       headerName: 'Order On Page',
       sortable: true,
       type: 'number',
-      width: 160,
+      width: 130,
     },
     {
       field: 'capture_date',
-      headerName: 'Capture Date',
+      headerName: 'Capture DateTime',
       width: 150,
     },
     {
@@ -179,7 +179,9 @@ export default class DetectionsTable extends React.Component {
                             )
                         }}*/
                         onSelectionModelChange = {id => {
-                          this.state.detectionId= id
+                            this.setState({
+                                detectionId: id
+                            })
                           console.log(this.state.detectionId)
                         }}
                     />
