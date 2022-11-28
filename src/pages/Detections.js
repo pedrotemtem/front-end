@@ -11,44 +11,10 @@ import { useEffect, useState } from 'react';
 import {
   GridRowModes,
   DataGridPro,
-  GridToolbarContainer,
   GridActionsCellItem,
 } from '@mui/x-data-grid-pro';
-import {
-  randomCreatedDate,
-  randomTraderName,
-  randomUpdatedDate,
-  randomId,
-} from '@mui/x-data-grid-generator';
 
-
-function EditToolbar(props) {
-  const { setRows, setRowModesModel } = props;
-
-  const handleClick = () => {
-    const id = randomId();
-    setRows((oldRows) => [...oldRows, { id, title: '', description: '', url: '', image_url: '', price: '', paid_search: '', order_on_page: '', capture_date: '', seller:'', marketplace:'', status: '', state: '', reason_codes: '' , isNew: true }]);
-    setRowModesModel((oldModel) => ({
-      ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'title' },
-    }));
-  };
-
-  return (
-    <GridToolbarContainer>
-      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add record
-      </Button>
-    </GridToolbarContainer>
-  );
-}
-
-EditToolbar.propTypes = {
-  setRowModesModel: PropTypes.func.isRequired,
-  setRows: PropTypes.func.isRequired,
-};
-
-export default function FullFeaturedCrudGrid() {
+export default function FullFeaturedCrudGrid(props) {
   const [rows = [], setRows] =useState();
   const [rowModesModel, setRowModesModel] = React.useState({});
   const [rowsId, setRowsId] = useState(0);
@@ -292,9 +258,6 @@ export default function FullFeaturedCrudGrid() {
               onRowEditStart={handleRowEditStart}
               onRowEditStop={handleRowEditStop}
               processRowUpdate={processRowUpdate}
-              components={{
-                  Toolbar: EditToolbar,
-              }}
               componentsProps={{
                   toolbar: { setRows, setRowModesModel },
               }}
