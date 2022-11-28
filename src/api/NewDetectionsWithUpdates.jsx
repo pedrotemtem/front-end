@@ -53,6 +53,9 @@ export default function FullFeaturedCrudGrid() {
   const [rowModesModel, setRowModesModel] = React.useState({});
   const [rowsId, setRowsId] = useState(0);
   const [rowsAudit=[], setRowsAudit]= useState();
+  const [allData =[], setAllData]=useState();
+
+  var rowToSave = {id: 0, state: null, status: null, reason_codes: null}
 
   const getAllDetections = async () => {
     const response = await fetch("http://localhost:8081/api/marketplacedetections/getAll")
@@ -81,6 +84,23 @@ export default function FullFeaturedCrudGrid() {
   const handleSaveClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
     /* call api update detection*/
+    rowToSave=setAllData;
+
+    
+
+    // PUT request using fetch inside useEffect React hook
+    const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id, status: status, state: state, reason_codes: reason_codes })
+    };
+    fetch('link to put in database', requestOptions)
+        .then(response => response.json())
+    
+    // empty dependency array means this effect will only run once (like componentDidMount in classes)
+
+
+    
 
   };
 
@@ -287,6 +307,8 @@ export default function FullFeaturedCrudGrid() {
               rows={rows}
               columns={columns}
               editMode="row"
+              checkboxSelection
+              disableSelectionOnClick
               rowModesModel={rowModesModel}
               onRowModesModelChange={(newModel) => setRowModesModel(newModel)}
               onRowEditStart={handleRowEditStart}
@@ -311,14 +333,13 @@ export default function FullFeaturedCrudGrid() {
                           }
                       );
               } }
-              onSelectionModelChange={id => {
-                  this.state.detectionId = id;
-                  console.log(this.state.detectionId);
-              } }
-              experimentalFeatures={{ newEditingApi: true }} />
+              onSelectionModelChange={rowsId => setRowsId(rowsId)}
+              experimentalFeatures={{ newEditingApi: true }}
+              onStateChange= {state => setAllData(state)}
+              />
       </Box>
 
-      <Button variant="outlined" onClick={handleSaveClick}> Update </Button>
+      <Button variant="outlined" onClick={()=> console.log(allData)}> Update </Button>
         
           <Box sx={{ height: 400, width: '100%' }}>
             <DataGridPro
