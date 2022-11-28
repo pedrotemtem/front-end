@@ -51,11 +51,20 @@ EditToolbar.propTypes = {
 export default function FullFeaturedCrudGrid() {
   const [rows = [], setRows] =useState();
   const [rowModesModel, setRowModesModel] = React.useState({});
-  const [rowsId, setRowsId] = useState(0);
+  const [rowsId= [], setRowsId] = useState();
   const [rowsAudit=[], setRowsAudit]= useState();
   const [allData =[], setAllData]=useState();
 
+  var rowsIdforAudit= 0;
+
   var rowToSave = {id: 0, state: null, status: null, reason_codes: null}
+
+  var newStatus= ""
+  var newState= ""
+  var newReasonCodes=""
+
+  var arrayRow=[]
+  var detectionRow=[]
 
   const getAllDetections = async () => {
     const response = await fetch("http://localhost:8081/api/marketplacedetections/getAll")
@@ -84,25 +93,41 @@ export default function FullFeaturedCrudGrid() {
   const handleSaveClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
     /* call api update detection*/
-    rowToSave=setAllData;
-
     
+    }
 
-    // PUT request using fetch inside useEffect React hook
-    const requestOptions = {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: id, status: status, state: state, reason_codes: reason_codes })
-    };
-    fetch('link to put in database', requestOptions)
-        .then(response => response.json())
-    
-    // empty dependency array means this effect will only run once (like componentDidMount in classes)
+    const updateDetection=() => allData.selection.forEach(element =>{
+        const detect= rows.find(detectionElement =>{
+            return detectionElement.id === element
+        })
 
+        detectionRow = allData.rows.idRowsLookup;
+        arrayRow = Object.values(detectionRow);
+        const updateDetect = arrayRow.find(updateDet =>{
+            return updateDet.id === element
+        })
+        if (detect.state !== updateDetect.state) {
+            newState = updateDetect.state
+          }
+        if (detect.status !== updateDetect.status) {
+            newStatus = updateDetect.status;
+        }
+        if (detect.reason_codes !== updateDetect.reason_codes) {
+            newReasonCodes = updateDetect.reason_codes;
+        }
+        
+        rowToSave = {id: element, state: newState, status: newStatus, reason_codes: newReasonCodes};
 
-    
+        fetch('http://localhost:8081/api/marketplacedetections/update', {
+            method: 'PUT',
+            body: JSON.stringify(rowToSave),
+            headers: {
+              'Content-Type': 'application/json',
+              "Access-Control-Allow-Origin": "*",
+            }
+        })
+    });  
 
-  };
 
   const handleDeleteClick = (id) => () => {
     setRows(rows.filter((row) => row.id !== id));
@@ -157,7 +182,7 @@ export default function FullFeaturedCrudGrid() {
         width: 110,
     },
 
-];
+    ];
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
@@ -320,9 +345,9 @@ export default function FullFeaturedCrudGrid() {
               componentsProps={{
                   toolbar: { setRows, setRowModesModel },
               }}
-              onCellClick={detectionRow => {
-                  rowsId = detectionRow.id;
-                  fetch(`Colocar isto com o detectionId/${rowsId}`)
+              /*onCellClick={detectionRow => {
+                  rowsIdforAudit = detectionRow.id;
+                  fetch(`Colocar isto com o detectionId/${rowsIdforAudit}`)
                       .then(res => res.json())
                       .then(
                           (detectionAudit) => {
@@ -332,14 +357,15 @@ export default function FullFeaturedCrudGrid() {
                               alert(error);
                           }
                       );
-              } }
-              onSelectionModelChange={rowsId => setRowsId(rowsId)}
+              } }*/
+              onSelectionModelChange={rowsIdtest => setRowsId(rowsIdtest)}
               experimentalFeatures={{ newEditingApi: true }}
               onStateChange= {state => setAllData(state)}
               />
       </Box>
 
-      <Button variant="outlined" onClick={()=> console.log(allData)}> Update </Button>
+      <Button variant="outlined" onClick={()=> {console.log(allData);
+                                            updateDetection();}}> Update </Button>
         
           <Box sx={{ height: 400, width: '100%' }}>
             <DataGridPro
