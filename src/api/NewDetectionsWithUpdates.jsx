@@ -26,7 +26,7 @@ export default function FullFeaturedCrudGrid() {
 
   var rowsIdforAudit= 0;
 
-  var rowToSave = {id: 0, state: "", status: "", reason_code: ""}
+  var rowToSave = {id: 0, state: "", status: "", reason_code: "", analystId: 2}
 
   var newStatus= ""
   var newState= ""
@@ -87,8 +87,10 @@ export default function FullFeaturedCrudGrid() {
             newReasonCode = "";
         }
         else{ newReasonCode= detect.reason_code;}
+
+        analystId=2
         
-        rowToSave = {id: element, state: newState, status: newStatus, reason_code: newReasonCode};
+        rowToSave = {id: element, state: newState, status: newStatus, reason_code: newReasonCode, analystId: analystId};
 
         fetch('http://localhost:8081/api/marketplacedetections/update', {
             method: 'PUT',
