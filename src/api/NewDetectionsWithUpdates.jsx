@@ -26,11 +26,11 @@ export default function FullFeaturedCrudGrid() {
 
   var rowsIdforAudit= 0;
 
-  var rowToSave = {id: 0, state: "", status: "", reason_codes: ""}
+  var rowToSave = {id: 0, state: "", status: "", reason_code: ""}
 
   var newStatus= ""
   var newState= ""
-  var newReasonCodes=""
+  var newReasonCode=""
 
 
   const getAllDetections = async () => {
@@ -83,12 +83,12 @@ export default function FullFeaturedCrudGrid() {
         }
         else{ newStatus = detect.status;}
 
-        if (detect2.reason_codes === detect.reason_codes) {
-            newReasonCodes = "";
+        if (detect2.reason_code === detect.reason_code) {
+            newReasonCode = "";
         }
-        else{ newReasonCodes= detect.reason_codes;}
+        else{ newReasonCode= detect.reason_code;}
         
-        rowToSave = {id: element, state: newState, status: newStatus, reason_codes: newReasonCodes};
+        rowToSave = {id: element, state: newState, status: newStatus, reason_code: newReasonCode};
 
         fetch('http://localhost:8081/api/marketplacedetections/update', {
             method: 'PUT',
@@ -236,7 +236,7 @@ export default function FullFeaturedCrudGrid() {
     },
     {
         field: 'reason_code',
-        headerName: 'Reason Codes',
+        headerName: 'Reason Code',
         sortable: false,
         width: 160,
         editable: true,
