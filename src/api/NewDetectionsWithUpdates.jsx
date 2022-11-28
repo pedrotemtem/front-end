@@ -15,7 +15,7 @@ import {
   GridActionsCellItem,
 } from '@mui/x-data-grid-pro';
 
-export default function FullFeaturedCrudGrid() {
+export default function FullFeaturedCrudGrid(props) {
   const [rows = [], setRows] =useState();
   const [rows2= [], setRows2] = useState();
 
@@ -31,7 +31,7 @@ export default function FullFeaturedCrudGrid() {
   var newStatus= ""
   var newState= ""
   var newReasonCode=""
-  var analystId= 2
+  var analystId= props.analystId
 
   const getAllDetections = async () => {
     const response = await fetch("http://localhost:8081/api/marketplacedetections/getAll")
@@ -87,8 +87,6 @@ export default function FullFeaturedCrudGrid() {
             newReasonCode = "";
         }
         else{ newReasonCode= detect.reason_code;}
-
-        analystId=2
         
         rowToSave = {id: element, state: newState, status: newStatus, reason_code: newReasonCode, analystId: analystId};
 
