@@ -14,42 +14,11 @@ import {
   GridToolbarContainer,
   GridActionsCellItem,
 } from '@mui/x-data-grid-pro';
-import {
-  randomCreatedDate,
-  randomTraderName,
-  randomUpdatedDate,
-  randomId,
-} from '@mui/x-data-grid-generator';
-
-
-function EditToolbar(props) {
-  const { setRows, setRowModesModel } = props;
-
-  const handleClick = () => {
-    const id = randomId();
-    setRows((oldRows) => [...oldRows, { id, title: '', description: '', url: '', image_url: '', price: '', paid_search: '', order_on_page: '', capture_date: '', seller:'', marketplace:'', status: '', state: '', reason_codes: '' , isNew: true }]);
-    setRowModesModel((oldModel) => ({
-      ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'title' },
-    }));
-  };
-
-  return (
-    <GridToolbarContainer>
-      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add record
-      </Button>
-    </GridToolbarContainer>
-  );
-}
-
-EditToolbar.propTypes = {
-  setRowModesModel: PropTypes.func.isRequired,
-  setRows: PropTypes.func.isRequired,
-};
 
 export default function FullFeaturedCrudGrid() {
   const [rows = [], setRows] =useState();
+  const [rows2= [], setRows2] = useState();
+
   const [rowModesModel, setRowModesModel] = React.useState({});
   const [rowsId= [], setRowsId] = useState();
   const [rowsAudit=[], setRowsAudit]= useState();
@@ -57,20 +26,19 @@ export default function FullFeaturedCrudGrid() {
 
   var rowsIdforAudit= 0;
 
-  var rowToSave = {id: 0, state: null, status: null, reason_codes: null}
+  var rowToSave = {id: 0, state: "", status: "", reason_codes: ""}
 
   var newStatus= ""
   var newState= ""
   var newReasonCodes=""
 
-  var arrayRow=[]
-  var detectionRow=[]
 
   const getAllDetections = async () => {
     const response = await fetch("http://localhost:8081/api/marketplacedetections/getAll")
     .then((response) => response.json());
 
     setRows(response)
+    setRows2(response)
   }
   
 
@@ -96,25 +64,29 @@ export default function FullFeaturedCrudGrid() {
     
     }
 
-    const updateDetection=() => allData.selection.forEach(element =>{
+    const updateDetection=() => rowsId.forEach(element =>{
         const detect= rows.find(detectionElement =>{
             return detectionElement.id === element
         })
 
-        detectionRow = allData.rows.idRowsLookup;
-        arrayRow = Object.values(detectionRow);
-        const updateDetect = arrayRow.find(updateDet =>{
-            return updateDet.id === element
+        const detect2= rows2.find(detectionElement =>{
+            return detectionElement.id === element
         })
-        if (detect.state !== updateDetect.state) {
-            newState = updateDetect.state
-          }
-        if (detect.status !== updateDetect.status) {
-            newStatus = updateDetect.status;
+
+        if (detect2.state === detect.state) {
+            newState = ""
         }
-        if (detect.reason_codes !== updateDetect.reason_codes) {
-            newReasonCodes = updateDetect.reason_codes;
+        else{ newState= detect.state}
+
+        if (detect2.status === detect2.status) {
+            newStatus = ""
         }
+        else{ newStatus = detect.status;}
+
+        if (detect2.reason_codes === detect.reason_codes) {
+            newReasonCodes = "";
+        }
+        else{ newReasonCodes= detect.reason_codes;}
         
         rowToSave = {id: element, state: newState, status: newStatus, reason_codes: newReasonCodes};
 
@@ -126,6 +98,7 @@ export default function FullFeaturedCrudGrid() {
               "Access-Control-Allow-Origin": "*",
             }
         })
+        console.log(rowToSave);
     });  
 
 
@@ -339,12 +312,6 @@ export default function FullFeaturedCrudGrid() {
               onRowEditStart={handleRowEditStart}
               onRowEditStop={handleRowEditStop}
               processRowUpdate={processRowUpdate}
-              components={{
-                  Toolbar: EditToolbar,
-              }}
-              componentsProps={{
-                  toolbar: { setRows, setRowModesModel },
-              }}
               /*onCellClick={detectionRow => {
                   rowsIdforAudit = detectionRow.id;
                   fetch(`Colocar isto com o detectionId/${rowsIdforAudit}`)
@@ -358,9 +325,8 @@ export default function FullFeaturedCrudGrid() {
                           }
                       );
               } }*/
-              onSelectionModelChange={rowsIdtest => setRowsId(rowsIdtest)}
+              onSelectionModelChange={rowsId => {setRowsId(rowsId); console.log(rowsId)}}
               experimentalFeatures={{ newEditingApi: true }}
-              onStateChange= {state => setAllData(state)}
               />
       </Box>
 
