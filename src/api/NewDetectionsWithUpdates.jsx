@@ -235,8 +235,8 @@ export default function FullFeaturedCrudGrid() {
         valueOptions: ['new','benign','enforce','']
     },
     {
-        field: 'reason_codes',
-        headerName: 'Reason',
+        field: 'reason_code',
+        headerName: 'Reason Codes',
         sortable: false,
         width: 160,
         editable: true,
