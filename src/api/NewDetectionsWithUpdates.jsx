@@ -31,7 +31,7 @@ export default function FullFeaturedCrudGrid() {
   var newStatus= ""
   var newState= ""
   var newReasonCode=""
-
+  var analystId= 2
 
   const getAllDetections = async () => {
     const response = await fetch("http://localhost:8081/api/marketplacedetections/getAll")
