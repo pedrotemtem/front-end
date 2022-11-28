@@ -5,8 +5,10 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@mui/material": "^5.10.14",
+    "@mui/icons-material": "^5.10.15",
+    "@mui/material": "^5.10.15",
     "@mui/x-data-grid": "^5.17.12",
+    "@mui/x-data-grid-generator": "^5.17.13",
     "@mui/x-data-grid-pro": "^5.17.12",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -43,5 +45,18 @@
   },
   "devDependencies": {
     "react-router-dom": "^6.4.3"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pedrotemtem/front-end.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pedrotemtem/front-end/issues"
+  },
+  "homepage": "https://github.com/pedrotemtem/front-end#readme"
 }

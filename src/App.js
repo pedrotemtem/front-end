@@ -11,7 +11,6 @@ import NoPage from "./pages/NoPage";
 import Footer from "./pages/Footer";
 
 import withNavigation from './components/WithNavigation';
-import withParams from './components/WithParams';
 
 class App extends Component {
 
@@ -54,8 +53,6 @@ class App extends Component {
   
   render() {
     const LoginWithNavigation = withNavigation(Login);
-    const WelcomeWithParams = withParams(Welcome);
-    const DetectionsWithParams = withParams(Detections);
     return (
       <div>
       <BrowserRouter>
@@ -63,8 +60,8 @@ class App extends Component {
           <Route path="/" element={<Navbar {...this.state} stateChanger={this.setNewState}/>}>
             <Route index element={<LoginWithNavigation {...this.state} stateChanger = {this.setNewState}/>} />
             <Route path="/login/" element={<LoginWithNavigation {...this.state} stateChanger = {this.setNewState}/>} />
-            <Route path="/welcome/" element={this.state.isLoggedIn ? <WelcomeWithParams {...this.state}/> : <Navigate replace to={"/login"} />} />
-            <Route path="/detections/" element={this.state.isLoggedIn? <DetectionsWithParams {...this.state}/> : <Navigate replace to={"/login"} />} />
+            <Route path="/welcome/" element={this.state.isLoggedIn ? <Welcome {...this.state}/> : <Navigate replace to={"/login"} />} />
+            <Route path="/detections/" element={this.state.isLoggedIn? <Detections {...this.state}/> : <Navigate replace to={"/login"} />} />
             <Route path="*" element={<NoPage/>} />
           </Route>
         </Routes>
