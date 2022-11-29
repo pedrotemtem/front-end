@@ -7,12 +7,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
 import { useEffect, useState } from 'react';
 import {
   GridRowModes,
@@ -21,7 +15,7 @@ import {
   GridActionsCellItem,
 } from '@mui/x-data-grid-pro';
 
-export default function FullFeaturedCrudGrid() {
+export default function FullFeaturedCrudGrid(props) {
   const [rows = [], setRows] =useState();
   const [rows2= [], setRows2] = useState();
 
@@ -32,12 +26,12 @@ export default function FullFeaturedCrudGrid() {
 
   var rowsIdforAudit= 0;
 
-  var rowToSave = {id: 0, state: "", status: "", reason_code: ""}
+  var rowToSave = {id: 0, state: "", status: "", reason_code: "", analystId: 2}
 
   var newStatus= ""
   var newState= ""
-  var newReasonCodes=""
-
+  var newReasonCode=""
+  var analystId= props.analystID
 
   const getAllDetections = async () => {
     const response = await fetch("http://localhost:8008/api/marketplacedetections/getAll")
@@ -84,17 +78,17 @@ export default function FullFeaturedCrudGrid() {
         }
         else{ newState= detect.state}
 
-        if (detect2.status === detect2.status) {
+        if (detect2.status === detect.status) {
             newStatus = ""
         }
         else{ newStatus = detect.status;}
 
-        if (detect2.reason_codes === detect.reason_code) {
-            newReasonCodes = "";
+        if (detect2.reason_code === detect.reason_code) {
+            newReasonCode = "";
         }
-        else{ newReasonCodes= detect.reason_code;}
+        else{ newReasonCode= detect.reason_code;}
         
-        rowToSave = {id: element, state: newState, status: newStatus, reason_code: newReasonCodes};
+        rowToSave = {id: element, state: newState, status: newStatus, reason_code: newReasonCode, analystId: analystId};
 
         fetch('http://localhost:8008/api/marketplacedetections/update', {
             method: 'PUT',
@@ -242,7 +236,7 @@ export default function FullFeaturedCrudGrid() {
     },
     {
         field: 'reason_code',
-        headerName: 'Reason',
+        headerName: 'Reason Code',
         sortable: false,
         width: 160,
         editable: true,
@@ -295,24 +289,6 @@ export default function FullFeaturedCrudGrid() {
   ];
 
   return (
-    <>
-    <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Instructions</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            To edit a detection, click on the pencil symbol in the Actions column. After editing, click on the Save Button.
-            After editing all the pretended detections, select the detections you edited (column on the left of Id), and then click the "Update" button that is bellow the table.
-            This way, your detections will be saved in the database.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-
     <><Box
           sx={{
               height: 500,
@@ -369,6 +345,6 @@ export default function FullFeaturedCrudGrid() {
                 experimentalFeatures={{ newEditingApi: true }}
             />
         </Box>
-    </></>
+    </>
   );
 }
