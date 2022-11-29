@@ -1,8 +1,6 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
@@ -11,7 +9,6 @@ import { useEffect, useState } from 'react';
 import {
   GridRowModes,
   DataGridPro,
-  GridToolbarContainer,
   GridActionsCellItem,
 } from '@mui/x-data-grid-pro';
 
@@ -19,9 +16,11 @@ export default function FullFeaturedCrudGrid(props) {
   const [rows = [], setRows] =useState();
   const [rows2= [], setRows2] = useState();
 
+  var initialAudit = {rowsAudit: {id: 0, date_time: null, parameter: null, marketplaceDetectionsId: 0, analysts_id: 0}}
+
   const [rowModesModel, setRowModesModel] = React.useState({});
   const [rowsId= [], setRowsId] = useState();
-  const [rowsAudit=[], setRowsAudit]= useState();
+  const [rowsAudit, setRowsAudit]= useState(initialAudit);
   const [allData =[], setAllData]=useState();
 
   var rowsIdforAudit= 0;
@@ -125,14 +124,14 @@ export default function FullFeaturedCrudGrid(props) {
   const columnsAudit = [
     {
         field: 'id',
-        headerName: 'ID',
+        headerName: 'Audit ID',
         width: 110,
     },
 
     {
         field: 'date_time',
         headerName: 'Date time',
-        width: 110,
+        width: 160,
     },
 
     {
@@ -142,7 +141,7 @@ export default function FullFeaturedCrudGrid(props) {
     },
 
     {
-        field: 'marketplace_detections_id',
+        field: 'marketplaceDetectionsId',
         headerName: 'Detection Id',
         width: 110,
     },
@@ -303,6 +302,9 @@ export default function FullFeaturedCrudGrid(props) {
               rows={rows}
               columns={columns}
               editMode="row"
+              pagination
+              pageSize={7}
+              rowsPerPageOptions={[5]}
               checkboxSelection
               disableSelectionOnClick
               rowModesModel={rowModesModel}
@@ -316,7 +318,7 @@ export default function FullFeaturedCrudGrid(props) {
                       .then(res => res.json())
                       .then(
                           (detectionAudit) => {
-                              setRowsAudit({ detectionAudit: detectionAudit });
+                              setRowsAudit({ rowsAudit: detectionAudit });
                           },
                           (error) => {
                               alert(error);
@@ -328,18 +330,23 @@ export default function FullFeaturedCrudGrid(props) {
               />
       </Box>
 
-      <Button variant="outlined" onClick={()=> {console.log(allData);
-                                            updateDetection();}}> Update </Button>
-        
-          <Box sx={{ height: 400, width: '100%' }}>
+      <Box textAlign="center"> 
+        <Button  size="large" variant="outlined" onClick={()=> {updateDetection();}}> Update </Button>
+      </Box>
+
+          <Box sx={{ height: 400, width: '35%', minWidth:600 ,marginLeft: "auto", marginRight: "auto" }}>
             <DataGridPro
-                rows={rowsAudit}
+                rows={rowsAudit["rowsAudit"]}
                 columns={columnsAudit}
                 pagination
                 pageSize={5}
                 rowsPerPageOptions={[5]}
-                checkboxSelection
                 disableSelectionOnClick
+                initialState={{
+                  sorting: {
+                    sortModel: [{ field: 'id', sort: 'desc' }],
+                  },
+                }}
                 experimentalFeatures={{ newEditingApi: true }}
             />
         </Box>
