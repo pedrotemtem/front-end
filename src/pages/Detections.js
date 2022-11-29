@@ -59,9 +59,7 @@ export default function FullFeaturedCrudGrid(props) {
   };
 
   const handleSaveClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-    /* call api update detection*/
-    
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });    
     }
 
     const updateDetection=() => rowsId.forEach(element =>{
@@ -241,7 +239,7 @@ export default function FullFeaturedCrudGrid(props) {
         width: 160,
         editable: true,
         type: 'singleSelect',
-        valueOptions: ['test','test2']
+        valueOptions: ['brand misuse','trademark infringement', 'phishing','fair-use']
     },
     {
       field: 'actions',
@@ -312,9 +310,9 @@ export default function FullFeaturedCrudGrid(props) {
               onRowEditStart={handleRowEditStart}
               onRowEditStop={handleRowEditStop}
               processRowUpdate={processRowUpdate}
-              /*onCellClick={detectionRow => {
+              onCellClick={detectionRow => {
                   rowsIdforAudit = detectionRow.id;
-                  fetch(`Colocar isto com o detectionId/${rowsIdforAudit}`)
+                  fetch(`http://localhost:8008/api/audit/getByMarketplaceDetection/${rowsIdforAudit}`)
                       .then(res => res.json())
                       .then(
                           (detectionAudit) => {
@@ -324,7 +322,7 @@ export default function FullFeaturedCrudGrid(props) {
                               alert(error);
                           }
                       );
-              } }*/
+              } }
               onSelectionModelChange={rowsId => {setRowsId(rowsId); console.log(rowsId)}}
               experimentalFeatures={{ newEditingApi: true }}
               />
