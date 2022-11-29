@@ -31,7 +31,7 @@ export default function FullFeaturedCrudGrid(props) {
   var newStatus= ""
   var newState= ""
   var newReasonCode=""
-  var analystId= props.analystId
+  var analystId= 2
 
   const getAllDetections = async () => {
     const response = await fetch("http://localhost:8081/api/marketplacedetections/getAll")
@@ -78,7 +78,7 @@ export default function FullFeaturedCrudGrid(props) {
         }
         else{ newState= detect.state}
 
-        if (detect2.status === detect2.status) {
+        if (detect2.status === detect.status) {
             newStatus = ""
         }
         else{ newStatus = detect.status;}
