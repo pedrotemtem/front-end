@@ -312,19 +312,13 @@ export default function FullFeaturedCrudGrid(props) {
               onRowEditStart={handleRowEditStart}
               onRowEditStop={handleRowEditStop}
               processRowUpdate={processRowUpdate}
-              /*onCellClick={detectionRow => {
-                  rowsIdforAudit = detectionRow.id;
-                  fetch(`Colocar isto com o detectionId/${rowsIdforAudit}`)
-                      .then(res => res.json())
-                      .then(
-                          (detectionAudit) => {
-                              setRowsAudit({ detectionAudit: detectionAudit });
-                          },
-                          (error) => {
-                              alert(error);
-                          }
-                      );
-              } }*/
+              onCellClick={detectionRow => {
+                    rowsIdforAudit = detectionRow.id;
+                    const res= fetch(`Colocar isto com o detectionId/${rowsIdforAudit}`)
+                        .then(res => res.json());
+                        setRowsAudit(res);
+                    console.log(rowsAudit);
+              } }
               onSelectionModelChange={rowsId => {setRowsId(rowsId); console.log(rowsId)}}
               experimentalFeatures={{ newEditingApi: true }}
               />
