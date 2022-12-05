@@ -11,6 +11,10 @@ import {
   DataGridPro,
   GridActionsCellItem,
 } from '@mui/x-data-grid-pro';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 export default function FullFeaturedCrudGrid(props) {
   const [rows = [], setRows] =useState();
@@ -21,7 +25,9 @@ export default function FullFeaturedCrudGrid(props) {
   const [rowModesModel, setRowModesModel] = React.useState({});
   const [rowsId= [], setRowsId] = useState();
   const [rowsAudit, setRowsAudit]= useState(initialAudit);
-  const [allData =[], setAllData]=useState();
+  
+  const [accountsList, setAccountsList] = useState([]);
+  const [currentAccount, setCurrentAccount] = useState("");
 
   var rowsIdforAudit= 0;
 
@@ -32,17 +38,33 @@ export default function FullFeaturedCrudGrid(props) {
   var newReasonCode=""
   var analystId= props.analystID
 
-  const getAllDetections = async () => {
-    const response = await fetch("http://localhost:8008/api/marketplacedetections/getAll")
+  const getDetectionsByID = async (id) => {
+    const response = await fetch(`http://localhost:8008/api/marketplacedetections/getByAccount/${id}`)
     .then((response) => response.json());
 
     setRows(response)
     setRows2(response)
   }
-  
 
+  const getAllAccounts = () => {
+    fetch("http://localhost:8008/api/account/getAll")
+      .then((response) => response.json())
+      .then((data) => {
+        setAccountsList(data)
+        }
+        )
+  }
+
+  const handleAccountsChange = (event) => {
+    setCurrentAccount(event.target.value)
+    //getting the account ID
+    var accountID = event.target.value.charAt(0)
+    /* load detections by account ID */
+    getDetectionsByID(accountID)
+  }
+  
   useEffect(() => {
-    getAllDetections();
+    getAllAccounts();
     },[])
 
   const handleRowEditStart = (params, event) => {
@@ -286,7 +308,23 @@ export default function FullFeaturedCrudGrid(props) {
   ];
 
   return (
-    <><Box
+    <>
+    <Box sx={{minWidth: 180}}>
+      <InputLabel>Account</InputLabel>
+      <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={currentAccount}
+          label="Account"
+          onChange={handleAccountsChange}
+        >
+          {accountsList.map((brandAccount) =>
+            <MenuItem key={brandAccount.id} value={brandAccount.id + "." + brandAccount.name}>{brandAccount.id}.{brandAccount.name}</MenuItem>
+          )}
+        </Select>
+    </Box>
+    <br/>
+    <Box
           sx={{
               height: 500,
               width: '100%',
@@ -304,7 +342,7 @@ export default function FullFeaturedCrudGrid(props) {
               editMode="row"
               pagination
               pageSize={7}
-              rowsPerPageOptions={[5]}
+              rowsPerPageOptions={[5,7]}
               checkboxSelection
               disableSelectionOnClick
               rowModesModel={rowModesModel}
