@@ -83,8 +83,9 @@ export default class Login extends Component {
                 <br /> <br />
                 <TextField id="password" label="password" type="password" autoComplete="on" value={this.state.localPassword} onChange={this.handlePasswordChange}/>
                 <br /> <br />
-                <Button style={{backgroundColor: "purple"}} size="large" variant="contained" onClick={this.loginClicked}>Log in</Button>
+                <Button style={{backgroundColor: "purple"}} sx={{mx:1}} size="large" variant="contained" onClick={this.loginClicked}>Log in</Button>
                 </form>
+                
 
                 <img src={image} alt="magnifying glass over web pages" className="loginImage"/>
             </div>
