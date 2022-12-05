@@ -57,26 +57,68 @@ BootstrapDialogTitle.propTypes = {
 export default function RegistrationForm() {
   const [open, setOpen] = React.useState(false);
   const [brand, setBrand] = React.useState("");
+  const [brandList, setBrandList] = React.useState([]);
+
+  var isNewBrand = true;
 
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   const handleWindowClose = () => {
     setOpen(false);
     setBrand("");
   };
+
+  // to load existing brands the first time this component is rendered
+  React.useEffect(() => {
+    fetch("http://localhost:8008/api/account/getAll")
+    .then((response) => response.json())
+    .then((data) => {
+        setBrandList(data)
+        }
+        )
+  }, [])
+
   const handleSaveClose = () => {
     setOpen(false);
     if (brand.length > 0) {
-        /* API call to save account in the db */
-    }
-    /* after saving, set this field back to empty */
-    setBrand("")
+        // check if the brand is already in the db
+        brandList.forEach((brandObject) => {
+            if (brand.toUpperCase() === brandObject.name.toUpperCase()) {
+                isNewBrand = false;
+                alert("This brand is already being protected by us! :)")
+            }
+        })
 
+        if (isNewBrand) {
+            var account = {name: brand}
+                fetch('http://localhost:8008/api/account/create', {
+                method: 'POST',
+                body: JSON.stringify(account),
+                headers: {
+                  'Content-Type': 'application/json',
+                  "Access-Control-Allow-Origin": "*",
+                }
+            })
+            alert("Congrats! Your brand was added!")
+
+            // to ensure that the brandList state is up to date with the new brand
+            fetch("http://localhost:8008/api/account/getAll")
+                .then((response) => response.json())
+                .then((data) => {
+                    setBrandList(data)
+                }
+                )
+            
+        }
+
+    }
   };
+
   const handleBrandChange = (event) => {
     setBrand(event.target.value)
-  }
+  };
 
   return (
     <div>
@@ -95,14 +137,15 @@ export default function RegistrationForm() {
           <DialogContentText>
             Please use this form to register a new customer account, so that we can start protecting your brand.
           </DialogContentText>
+          <hr></hr>
           <br />
           <TextField
             autoFocus
+            fullWidth
             margin="dense"
             id="name"
             label="Brand name (account name)"
             type="text"
-            fullWidth
             variant="filled"
             onChange={handleBrandChange}
           />

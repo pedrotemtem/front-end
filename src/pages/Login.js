@@ -86,7 +86,7 @@ export default class Login extends Component {
                 <br /> <br />
                 <Button style={{backgroundColor: "purple"}} sx={{mx:2.5, my:2.5}} size="large" variant="contained" onClick={this.loginClicked}>Log in</Button>
                 <div className="register-div">
-                <p className="account-register-paragraph">Want to be protected? Register yourself right now!</p>
+                <p className="account-register-paragraph">Want to be protected? Register your brand right now!</p>
                 <RegistrationForm />
                 </div>
                 </form>
