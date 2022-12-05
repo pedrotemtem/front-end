@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import "./pagesCSS/Login.css"
 import { TextField, Button, Alert, AlertTitle } from "@mui/material";
 import image from "./images/loginImage.jpeg";
+import RegistrationForm from "../components/RegistrationForm";
 
 export default class Login extends Component {
     
@@ -83,7 +84,11 @@ export default class Login extends Component {
                 <br /> <br />
                 <TextField id="password" label="password" type="password" autoComplete="on" value={this.state.localPassword} onChange={this.handlePasswordChange}/>
                 <br /> <br />
-                <Button style={{backgroundColor: "purple"}} sx={{mx:1}} size="large" variant="contained" onClick={this.loginClicked}>Log in</Button>
+                <Button style={{backgroundColor: "purple"}} sx={{mx:2.5, my:2.5}} size="large" variant="contained" onClick={this.loginClicked}>Log in</Button>
+                <div className="register-div">
+                <p className="account-register-paragraph">Want to be protected? Register yourself right now!</p>
+                <RegistrationForm />
+                </div>
                 </form>
                 
 
