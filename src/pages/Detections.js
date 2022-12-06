@@ -13,8 +13,8 @@ import {
 } from '@mui/x-data-grid-pro';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import "./pagesCSS/Detections.css";
 
 export default function FullFeaturedCrudGrid(props) {
   const [rows = [], setRows] =useState();
@@ -307,24 +307,32 @@ export default function FullFeaturedCrudGrid(props) {
     },
   ];
 
+
   return (
     <>
-    <Box sx={{minWidth: 180}}>
-      <InputLabel>Account</InputLabel>
-      <Select
+    <div className='flex-container'>
+      <div className="flex-item-1">
+        <Box sx={{minWidth: 180}} className="account-selector">
+          <InputLabel className="account-label">Customer Account:</InputLabel>
+          <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={currentAccount}
           label="Account"
           onChange={handleAccountsChange}
-        >
+          >
           {accountsList.map((brandAccount) =>
-            <MenuItem key={brandAccount.id} value={brandAccount.id + "." + brandAccount.name}>{brandAccount.id}.{brandAccount.name}</MenuItem>
+            <MenuItem key={brandAccount.id} value={brandAccount.id + "." + brandAccount.name}>{brandAccount.id} - {brandAccount.name}</MenuItem>
           )}
-        </Select>
-    </Box>
+          </Select>
+        </Box>
+      </div>
+      <div>
+    <Button size="large" variant="outlined" onClick={()=> {updateDetection();}}> Update DB</Button>
+      </div>
+    </div>        
     <br/>
-    <Box
+    <Box className="info-table"
           sx={{
               height: 500,
               width: '100%',
@@ -368,11 +376,7 @@ export default function FullFeaturedCrudGrid(props) {
               />
       </Box>
 
-      <Box textAlign="center"> 
-        <Button  size="large" variant="outlined" onClick={()=> {updateDetection();}}> Update </Button>
-      </Box>
-
-          <Box sx={{ height: 400, width: '35%', minWidth:600 ,marginLeft: "auto", marginRight: "auto" }}>
+          <Box className="info-table" sx={{ height: 400, width: '35%', minWidth:600 ,marginLeft: "auto", marginRight: "auto" }}>
             <DataGridPro
                 rows={rowsAudit["rowsAudit"]}
                 columns={columnsAudit}
