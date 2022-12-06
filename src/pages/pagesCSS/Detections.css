@@ -1,0 +1,39 @@
+.account-selector {
+    text-align: center;
+    background-color: #FDF8EC;
+    width: 210px;
+    padding: 15px;
+    margin: auto;
+    border: 3px solid #CA1643;
+}
+
+.account-label {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: purple;
+    font-weight: bold;
+}
+
+.info-table {
+    background-color: #fafaf9;
+    border: 2px solid #CA1643;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.flex-container > div {
+    padding-top: 15px;
+}
+
+.flex-item-1 {
+    max-width: 80%;
+}
+
