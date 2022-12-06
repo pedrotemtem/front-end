@@ -87,7 +87,9 @@ export default function BrandTracks(props) {
     setBrandTrack("");
   };
 
+  
   const handleSave = () => {
+
     var alreadyExists = false;
 
     if (brandTrack.length > 0) {
