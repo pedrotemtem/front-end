@@ -15,6 +15,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import "./pagesCSS/Detections.css";
+import BrandTracks from "../components/BrandTracks.js";
 
 export default function FullFeaturedCrudGrid(props) {
   const [rows = [], setRows] =useState();
@@ -28,6 +29,7 @@ export default function FullFeaturedCrudGrid(props) {
   
   const [accountsList, setAccountsList] = useState([]);
   const [currentAccount, setCurrentAccount] = useState("");
+  const [currentAccountID, setCurrentAccountID] = useState(0);
 
   var rowsIdforAudit= 0;
 
@@ -59,6 +61,7 @@ export default function FullFeaturedCrudGrid(props) {
     setCurrentAccount(event.target.value)
     //getting the account ID
     var accountID = event.target.value.charAt(0)
+    setCurrentAccountID(accountID)
     /* load detections by account ID */
     getDetectionsByID(accountID)
   }
@@ -200,7 +203,7 @@ export default function FullFeaturedCrudGrid(props) {
         headerName: 'Image Url',
         sortable: false,
         width: 200,
-        renderCell: (params) =><img src= {params.value} className="image" height="50px"/>,
+        renderCell: (params) =><img src= {params.value} className="image" height="50px" alt=""/>,
     },
     {
         field: 'price',
@@ -327,8 +330,10 @@ export default function FullFeaturedCrudGrid(props) {
           </Select>
         </Box>
       </div>
-      <div>
+      <div className="flex-item-2">
     <Button size="large" variant="outlined" onClick={()=> {updateDetection();}}> Update DB</Button>
+    <br/><br />
+    <BrandTracks accountId={currentAccountID}/>
       </div>
     </div>        
     <br/>
