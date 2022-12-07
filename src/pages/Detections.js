@@ -40,6 +40,12 @@ export default function FullFeaturedCrudGrid(props) {
   var newReasonCode=""
   var analystId= props.analystID
 
+  /* only show the update database button when there are selected rows */
+  var areRowsSelected = false
+  if (rowsId.length > 0) {
+    areRowsSelected = true;
+  }
+
   const getDetectionsByID = async (id) => {
     const response = await fetch(`http://localhost:8008/api/marketplacedetections/getByAccount/${id}`)
     .then((response) => response.json());
@@ -330,7 +336,8 @@ export default function FullFeaturedCrudGrid(props) {
         </Box>
       </div>
       <div className="flex-item-2">
-    <Button size="large" variant="outlined" onClick={()=> {updateDetection();}}> Update DB</Button>
+        {areRowsSelected && <Button size="large" variant="outlined" onClick={()=> {updateDetection();}}> Update DB</Button>}
+        {!areRowsSelected && <Button size="large" variant="outlined" disabled> Select Rows to Update</Button>}
     <br/><br />
     <BrandTracks accountId={currentAccountID}/>
       </div>
@@ -375,7 +382,7 @@ export default function FullFeaturedCrudGrid(props) {
                           }
                       );
               } }
-              onSelectionModelChange={rowsId => {setRowsId(rowsId); console.log(rowsId)}}
+              onSelectionModelChange={rowsId => {setRowsId(rowsId)}}
               experimentalFeatures={{ newEditingApi: true }}
               />
       </Box>

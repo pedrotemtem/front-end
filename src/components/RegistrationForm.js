@@ -61,6 +61,11 @@ export default function RegistrationForm() {
 
   var isNewBrand = true;
 
+  var isAccountFilled = false;
+  if (brand.length > 0) {
+    isAccountFilled = true;
+  }
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -151,9 +156,13 @@ export default function RegistrationForm() {
           />
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleSaveClose} >
+            {isAccountFilled && <Button onClick={handleSaveClose} >
             Save account
-          </Button>
+          </Button> }
+            {!isAccountFilled && <Button disabled >
+            Fill Account Name First
+          </Button>}
+          
         </DialogActions>
       </BootstrapDialog>
     </div>

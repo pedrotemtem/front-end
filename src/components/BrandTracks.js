@@ -72,6 +72,18 @@ export default function BrandTracks(props) {
     showBrandTrackButton = true;
   }
 
+  // only enable the delete brand tracks button when at least one brand track is selected
+  var areRowsSelected = false;
+  if (selectedRows.length > 0) {
+    areRowsSelected = true;
+  }
+
+  // only enable the add brand tracks button when a brand track is written in the field
+  var isBrandWritten = false;
+  if (brandTrack.length > 0) {
+    isBrandWritten = true;
+  }
+
   const handleClickOpen = () => {
     setOpen(true);
     fetch(`http://localhost:8008/api/brandtracks/getByAccount/${props.accountId}`)
@@ -85,6 +97,7 @@ export default function BrandTracks(props) {
   const handleWindowClose = () => {
     setOpen(false);
     setBrandTrack("");
+    setSelectedRows([])
   };
 
 
@@ -122,8 +135,6 @@ export default function BrandTracks(props) {
         )
         alert("Brand track added successfully")
     }
-    } else {
-        alert("No brand track was added")
     }
   };
 
@@ -141,15 +152,17 @@ export default function BrandTracks(props) {
 
   return (
     <div>
-      {showBrandTrackButton && <Button variant="contained" color="success" size="large" onClick={handleClickOpen}>
+      {showBrandTrackButton && <Button variant="outlined" color="success" size="large" onClick={handleClickOpen}>
         Manage Brand Tracks
       </Button>}
-      {!showBrandTrackButton && <Button disabled variant="contained" color="success" size="large" >
+      {!showBrandTrackButton && <Button disabled variant="outlined" color="success" size="large" >
         Select Customer Account
       </Button>}
       
       <Dialog
         onClose={handleWindowClose}
+        fullWidth
+        maxWidth="xs"
         aria-labelledby="customized-dialog-title"
         TransitionComponent={Transition}
         open={open}>
@@ -158,7 +171,7 @@ export default function BrandTracks(props) {
         </BootstrapDialogTitle>
         <DialogContent dividers>
 
-        <Box sx={{ height: 400, width: 322 }}>
+        <Box sx={{ height: 400, width: 300, margin: "auto"}}>
             <DataGrid
                 rows={brandTrackList}
                 columns={columns}
@@ -184,12 +197,23 @@ export default function BrandTracks(props) {
           />
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleDeleteRows}>
+            {/* only enabling the delete button when brand tracks are selected */}
+            {areRowsSelected && <Button autoFocus color="error" variant="contained" onClick={handleDeleteRows}>
             Delete Selected Rows
-          </Button>
-          <Button autoFocus onClick={handleSave} >
+          </Button>}
+           {!areRowsSelected && <Button autoFocus variant="outlined" disabled>
+            Select Rows to Delete
+          </Button>}
+
+          {/* only enabling add brand track button when a brand track is written in the field */}
+          {isBrandWritten && <Button onClick={handleSave} variant="contained" color="success" >
             Add Brand Track
-          </Button>
+          </Button>}
+          {!isBrandWritten && <Button variant="outlined" disabled >
+            Write Brand Track
+          </Button>}
+
+          
         </DialogActions>
       </Dialog>
     </div>
