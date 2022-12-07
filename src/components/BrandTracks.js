@@ -66,7 +66,7 @@ export default function BrandTracks(props) {
   const [brandTrackList, setBrandTrackList] = React.useState([{id:0, search_term: null}]);
   const [selectedRows, setSelectedRows] = React.useState([]);
 
-  // only enable the manage brand tracks button when an account was selected
+  // only enable the manage brand tracks button when an account is selected
   var showBrandTrackButton = false;
   if (props.accountId > 0) {
     showBrandTrackButton = true;
@@ -87,7 +87,7 @@ export default function BrandTracks(props) {
     setBrandTrack("");
   };
 
-  
+
   const handleSave = () => {
 
     var alreadyExists = false;

@@ -120,7 +120,6 @@ export default function FullFeaturedCrudGrid(props) {
               "Access-Control-Allow-Origin": "*",
             }
         })
-        console.log(rowToSave);
     });  
 
 
