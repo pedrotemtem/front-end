@@ -341,10 +341,10 @@ export default function FullFeaturedCrudGrid(props) {
         </Box>
       </div>
       <div className="flex-item-2">
-        {areRowsSelected && <Button size="large" variant="outlined" onClick={()=> {updateDetection();}}> Update DB</Button>}
-        {!areRowsSelected && <Button size="large" variant="outlined" disabled> Select Rows to Update</Button>}
-    <br/><br />
-    <BrandTracks accountId={currentAccountID}/>
+      {areRowsSelected && <Button size="large" variant="outlined" onClick={()=> {updateDetection();}}> Update Database</Button>}
+      {!areRowsSelected && <Button size="large" variant="outlined" disabled> Select Rows to Update</Button>}
+      <br/><br />
+      <BrandTracks accountId={currentAccountID}/>
       </div>
     </div>        
     <br/>
@@ -366,7 +366,6 @@ export default function FullFeaturedCrudGrid(props) {
               editMode="row"
               pagination
               pageSize={7}
-              rowsPerPageOptions={[5,7]}
               checkboxSelection
               disableSelectionOnClick
               rowModesModel={rowModesModel}

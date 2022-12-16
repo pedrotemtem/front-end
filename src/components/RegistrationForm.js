@@ -86,13 +86,13 @@ export default function RegistrationForm() {
   }, [])
 
   const handleSaveClose = () => {
-    setOpen(false);
     if (brand.length > 0) {
         // check if the brand is already in the db
         brandList.forEach((brandObject) => {
             if (brand.toUpperCase() === brandObject.name.toUpperCase()) {
                 isNewBrand = false;
                 alert("This brand is already being protected by us! :)")
+                
             }
         })
 
@@ -106,6 +106,7 @@ export default function RegistrationForm() {
                   "Access-Control-Allow-Origin": "*",
                 }
             })
+            setOpen(false);
             alert("Congrats! Your brand was added!")
 
             // to ensure that the brandList state is up to date with the new brand
