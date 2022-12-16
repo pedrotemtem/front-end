@@ -46,7 +46,7 @@ export default class Login extends Component {
     loginClicked() {
 
         // setState is async. Therefore, by calling checkCredentials this way, we ensure
-        // that this funntion is only called when the state is properly set.
+        // that this function is only called when the state is properly set.
 
         this.props.analystsInfo.forEach(obj => {
             if (obj["email"] === this.state.localEmail) {
