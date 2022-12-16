@@ -135,6 +135,7 @@ export default function BrandTracks(props) {
             setBrandTrackList(data)
         }
         )
+        // ensure the button "Add brand track" is disabled
         isBrandWritten = false;
         alert("Brand track added successfully") 
     }
