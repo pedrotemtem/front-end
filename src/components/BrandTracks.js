@@ -85,7 +85,9 @@ export default function BrandTracks(props) {
   }
 
   const handleClickOpen = () => {
+
     setOpen(true);
+    setBrandTrack("");
     fetch(`http://localhost:8008/api/brandtracks/getByAccount/${props.accountId}`)
     .then((response) => response.json())
     .then((data) => {
@@ -96,8 +98,7 @@ export default function BrandTracks(props) {
 
   const handleWindowClose = () => {
     setOpen(false);
-    setBrandTrack("");
-    setSelectedRows([])
+    setSelectedRows([]);
   };
 
 
@@ -116,8 +117,9 @@ export default function BrandTracks(props) {
         if (alreadyExists) {
             alert("Oops... this brand track alread exists!")
         } else {
-            setOpen(false)
+            setOpen(false);
             var newBrandTrack = {search_term: brandTrack, account_id: props.accountId}
+
             fetch('http://localhost:8008/api/brandtracks/create', {
             method: 'POST',
             body: JSON.stringify(newBrandTrack),
@@ -133,7 +135,9 @@ export default function BrandTracks(props) {
             setBrandTrackList(data)
         }
         )
+        isBrandWritten = false;
         alert("Brand track added successfully")
+        
     }
     }
   };
