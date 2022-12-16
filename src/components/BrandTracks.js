@@ -136,8 +136,7 @@ export default function BrandTracks(props) {
         }
         )
         isBrandWritten = false;
-        alert("Brand track added successfully")
-        
+        alert("Brand track added successfully") 
     }
     }
   };
