@@ -46,6 +46,11 @@ export default function FullFeaturedCrudGrid(props) {
     areRowsSelected = true;
   }
 
+  /* prompts user to confirm if he wants to leave the page (on reload) */
+  window.onbeforeunload = function () {
+    return "";
+ }
+
   const getDetectionsByID = async (id) => {
     const response = await fetch(`http://localhost:8008/api/marketplacedetections/getByAccount/${id}`)
     .then((response) => response.json());
