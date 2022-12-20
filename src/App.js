@@ -60,8 +60,8 @@ class App extends Component {
           <Route path="/" element={<Navbar {...this.state} stateChanger={this.setNewState}/>}>
             <Route index element={<LoginWithNavigation {...this.state} stateChanger = {this.setNewState}/>} />
             <Route path="/login/" element={<LoginWithNavigation {...this.state} stateChanger = {this.setNewState}/>} />
-            <Route path="/welcome/" element={(this.state.isLoggedIn || sessionStorage.getItem("authenticatedUser")) ? <Welcome {...this.state}/> : <Navigate replace to={"/login"} />} />
-            <Route path="/detections/" element={(this.state.isLoggedIn || sessionStorage.getItem("authenticatedUser")) ? <Detections {...this.state}/> : <Navigate replace to={"/login"} />} />
+            <Route path="/welcome/" element={(this.state.isLoggedIn ? <Welcome {...this.state}/> : <Navigate replace to={"/login"} />} />
+            <Route path="/detections/" element={(this.state.isLoggedIn ? <Detections {...this.state}/> : <Navigate replace to={"/login"} />} />
             <Route path="*" element={<NoPage/>} />
           </Route>
         </Routes>
