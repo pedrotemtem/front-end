@@ -20,7 +20,7 @@ const columns = [
         editable: false,
     },
     {
-        field: "search_term",
+        field: "searchTerm",
         headerName: "Brand Track",
         width: 150,
         editable: false,
@@ -63,7 +63,7 @@ BootstrapDialogTitle.propTypes = {
 export default function BrandTracks(props) {
   const [open, setOpen] = React.useState(false);
   const [brandTrack, setBrandTrack] = React.useState("");
-  const [brandTrackList, setBrandTrackList] = React.useState([{id:0, search_term: null}]);
+  const [brandTrackList, setBrandTrackList] = React.useState([{id:0, searchTerm: null}]);
   const [selectedRows, setSelectedRows] = React.useState([]);
 
   // only enable the manage brand tracks button when an account is selected
@@ -109,7 +109,7 @@ export default function BrandTracks(props) {
     if (brandTrack.length > 0) {
 
         brandTrackList.forEach((brandTrackObj) => {
-            if (brandTrackObj.search_term.toUpperCase() === brandTrack.toUpperCase()) {
+            if (brandTrackObj.searchTerm.toUpperCase() === brandTrack.toUpperCase()) {
                 alreadyExists = true;
             } }
         )
@@ -118,7 +118,7 @@ export default function BrandTracks(props) {
             alert("Oops... this brand track alread exists!")
         } else {
             setOpen(false);
-            var newBrandTrack = {search_term: brandTrack, account_id: props.accountId}
+            var newBrandTrack = {searchTerm: brandTrack, accountId: props.accountId}
 
             fetch('http://localhost:8008/api/brandtracks/create', {
             method: 'POST',
@@ -202,7 +202,7 @@ export default function BrandTracks(props) {
         </DialogContent>
         <DialogActions>
             {/* only enabling the delete button when brand tracks are selected */}
-            {areRowsSelected && <Button autoFocus color="error" variant="contained" onClick={handleDeleteRows}>
+            {areRowsSelected && <Button autoFocus color="error" variant="outlined" onClick={handleDeleteRows}>
             Delete Selected Rows
           </Button>}
            {!areRowsSelected && <Button autoFocus variant="outlined" disabled>

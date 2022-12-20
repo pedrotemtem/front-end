@@ -21,7 +21,7 @@ export default function FullFeaturedCrudGrid(props) {
   const [rows = [], setRows] =useState();
   const [rows2= [], setRows2] = useState();
 
-  var initialAudit = {rowsAudit: {id: 0, date_time: null, parameter: null, marketplaceDetectionsId: 0, analysts_id: 0}}
+  var initialAudit = {rowsAudit: {id: 0, dateTime: null, parameter: null, marketplaceDetectionsId: 0, analystsId: 0}}
 
   const [rowModesModel, setRowModesModel] = React.useState({});
   const [rowsId= [], setRowsId] = useState();
@@ -33,7 +33,7 @@ export default function FullFeaturedCrudGrid(props) {
 
   var rowsIdforAudit= 0;
 
-  var rowToSave = {id: 0, state: "", status: "", reason_code: "", analystId: 2}
+  var rowToSave = {id: 0, state: "", status: "", reasonCode: "", analystId: 2}
 
   var newStatus= ""
   var newState= ""
@@ -116,12 +116,12 @@ export default function FullFeaturedCrudGrid(props) {
         }
         else{ newStatus = detect.status;}
 
-        if (detect2.reason_code === detect.reason_code) {
+        if (detect2.reasonCode === detect.reasonCode) {
             newReasonCode = "";
         }
-        else{ newReasonCode= detect.reason_code;}
+        else{ newReasonCode= detect.reasonCode;}
         
-        rowToSave = {id: element, state: newState, status: newStatus, reason_code: newReasonCode, analystId: analystId};
+        rowToSave = {id: element, state: newState, status: newStatus, reasonCode: newReasonCode, analystId: analystId};
 
         fetch('http://localhost:8008/api/marketplacedetections/update', {
             method: 'PUT',
@@ -164,7 +164,7 @@ export default function FullFeaturedCrudGrid(props) {
     },
 
     {
-        field: 'date_time',
+        field: 'dateTime',
         headerName: 'Date time',
         width: 160,
     },
@@ -182,7 +182,7 @@ export default function FullFeaturedCrudGrid(props) {
     },
     
     {
-        field: 'analysts_id',
+        field: 'analystsId',
         headerName: 'Analyst Id',
         width: 110,
     },
@@ -209,7 +209,7 @@ export default function FullFeaturedCrudGrid(props) {
         width: 110,
     },
     {
-        field: 'image_url',
+        field: 'imageUrl',
         headerName: 'Image Url',
         sortable: false,
         width: 200,
@@ -221,19 +221,19 @@ export default function FullFeaturedCrudGrid(props) {
         width: 150,
     },
     {
-        field: 'paid_search',
+        field: 'paidSearch',
         headerName: 'Paid Search',
         width: 110,
     },
     {
-        field: 'order_on_page',
+        field: 'orderOnPage',
         headerName: 'Order On Page',
         sortable: true,
         type: 'number',
         width: 160,
     },
     {
-        field: 'capture_date',
+        field: 'captureDate',
         headerName: 'Capture Date',
         width: 150,
     },
@@ -267,7 +267,7 @@ export default function FullFeaturedCrudGrid(props) {
         valueOptions: ['new','benign','enforce','']
     },
     {
-        field: 'reason_code',
+        field: 'reasonCode',
         headerName: 'Reason Code',
         sortable: false,
         width: 160,
