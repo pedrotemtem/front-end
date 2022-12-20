@@ -15,6 +15,7 @@ export default class Login extends Component {
             localRightPassword: "",
             localUsername: "",
             localId: 0,
+            localRoleName: "",
             localHasLoginFailed: false,
             emailNotFound: true
         }
@@ -23,6 +24,7 @@ export default class Login extends Component {
         this.handlePasswordChange = this.handlePasswordChange.bind(this)
         this.loginClicked = this.loginClicked.bind(this)
         this.checkCredentials = this.checkCredentials.bind(this)
+        this.getRoleName = this.getRoleName.bind(this)
     }
 
     checkCredentials() {
@@ -31,10 +33,11 @@ export default class Login extends Component {
             this.props.stateChanger({
                 rightPassword: this.state.localRightPassword,
                 username: this.state.localUsername,
-                analystID: this.state.localId,
+                userID: this.state.localId,
                 email: this.state.localEmail,
                 password: this.state.localPassword,
-                isLoggedIn: true
+                isLoggedIn: true,
+                roleName: this.state.localRoleName
             })
             
         }
@@ -43,19 +46,35 @@ export default class Login extends Component {
         }
     }
 
+    async getRoleName(roleId) {
+
+        // returns a promise
+        var response = await fetch("http://localhost:8008/api/role/getRoleName/"+roleId)
+
+        // gets the value of the promise (as text)
+        var roleName = await response.text();
+         
+        return roleName
+
+    }
+
     loginClicked() {
 
         // setState is async. Therefore, by calling checkCredentials this way, we ensure
         // that this function is only called when the state is properly set.
 
-        this.props.analystsInfo.forEach(obj => {
+        this.props.userInfo.forEach(async obj => {
             if (obj["email"] === this.state.localEmail) {
+
+                var roleName = await this.getRoleName(obj["roleId"])
+
                 this.setState(
                     {
                         localRightPassword: obj["password"],
                         localUsername: obj["name"],
                         localId: obj["id"],
-                        emailNotFound: false
+                        emailNotFound: false,
+                        localRoleName: roleName
                     }, () => {this.checkCredentials()}
                 )
             }    

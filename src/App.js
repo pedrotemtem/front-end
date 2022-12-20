@@ -7,6 +7,7 @@ import Navbar from "./pages/Navbar";
 import Login from "./pages/Login";
 import Welcome from "./pages/Welcome";
 import Detections from "./pages/Detections";
+import Metrics from "./pages/Metrics";
 import NoPage from "./pages/NoPage";
 import Footer from "./pages/Footer";
 
@@ -22,10 +23,11 @@ class App extends Component {
       password: "",
       rightPassword: "_",
       username: "",
-      analystID: 0,
+      userID: 0,
       hasLoginFailed: false,
       isLoggedIn: false,
-      analystsInfo : {}
+      roleName: 0,
+      userInfo : {}
     }
 
     this.setNewState = this.setNewState.bind(this)
@@ -39,12 +41,12 @@ class App extends Component {
   }
   
   componentDidMount() {
-    fetch("http://localhost:8008/api/analysts/getAll")
+    fetch("http://localhost:8008/api/users/getAll")
     .then((response) => response.json())
     .then((data) => {
         this.setState(
             {
-                analystsInfo: data
+                userInfo: data
             }
         )
     }
@@ -62,6 +64,7 @@ class App extends Component {
             <Route path="/login/" element={<LoginWithNavigation {...this.state} stateChanger = {this.setNewState}/>} />
             <Route path="/welcome/" element={this.state.isLoggedIn ? <Welcome {...this.state}/> : <Navigate replace to={"/login"} />} />
             <Route path="/detections/" element={this.state.isLoggedIn ? <Detections {...this.state}/> : <Navigate replace to={"/login"} />} />
+            <Route path="/metrics" element={(this.state.isLoggedIn && this.state.roleName.toUpperCase() === "ADMIN") ? <Metrics {...this.state}/> : <Navigate replace to={"/login"}/> }
             <Route path="*" element={<NoPage/>} />
           </Route>
         </Routes>

@@ -102,7 +102,7 @@ export default function FullFeaturedCrudGrid(props) {
             return detectionElement.id === element
         })
 
-        const detect2= rows2.find(detectionElement =>{
+        const detect2 = rows2.find(detectionElement =>{
             return detectionElement.id === element
         })
 

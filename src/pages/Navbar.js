@@ -15,7 +15,7 @@ export default class Navbar extends Component {
     LoginButton() {
         if (this.props.isLoggedIn) {
             return <>
-            <Button disabled={true} color="inherit"><span className="userMail">{this.props.email} (id: {this.props.analystID})</span></Button>
+            <Button disabled={true} color="inherit"><span className="userMail">{this.props.email} (id: {this.props.userID})</span></Button>
             <Button color="inherit" variant="outlined" onClick={this.handleClick}><Link className="navLink" to="/login">Log Out</Link></Button>
             </>
         } else {
