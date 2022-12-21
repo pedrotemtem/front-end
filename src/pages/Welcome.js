@@ -1,9 +1,31 @@
 import React, {Component} from "react";
-import {Link,} from "react-router-dom";
 import "./pagesCSS/Welcome.css"
 import image from "./images/loginImage.jpeg";
+import Clock from "react-live-clock";
 
 export default class Welcome extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.displayDate = this.displayDate.bind(this);
+    }
+
+    displayDate() {
+
+        let currentDate = new Date();
+
+        let day = currentDate.getDate();
+        let month = currentDate.toLocaleString("default", {month: "long"});
+        let year = currentDate.getFullYear();
+
+        return (
+            <>
+            {month + " "+day+", "+year}
+            </>
+        )
+        
+    }
 
     render() {
         return (
@@ -11,7 +33,8 @@ export default class Welcome extends Component {
                 <div className="welcome"> Welcome back, <span className="violetBold">{this.props.username}</span>!
                 <p className="role">Your current role: <span className="violetBold">{this.props.roleName}</span></p></div>
                 <div className="redirectId">
-                <div className="redirect"> To check your detections, please <Link to="/detections/">click here</Link></div>
+                <div className="time">Today is {this.displayDate()}</div><br/>
+                <div className="time"> Right now is: <Clock format={"HH:mm:ss"} ticking={true} timezone={"Europe/Lisbon"} /></div>
                 <div className="idDiv">Please note that any changes you do will be recorded with your <span className="analystId">user ID</span></div>
                 </div>
 

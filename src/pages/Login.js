@@ -17,7 +17,6 @@ export default class Login extends Component {
             localId: 0,
             localRoleName: "",
             localHasLoginFailed: false,
-            emailNotFound: true
         }
 
         this.handleEmailChange = this.handleEmailChange.bind(this)
@@ -63,8 +62,12 @@ export default class Login extends Component {
         // setState is async. Therefore, by calling checkCredentials this way, we ensure
         // that this function is only called when the state is properly set.
 
+        var emailFound = false;
+
         this.props.userInfo.forEach(async obj => {
             if (obj["email"] === this.state.localEmail) {
+
+                emailFound = true;
 
                 var roleName = await this.getRoleName(obj["roleId"])
 
@@ -73,17 +76,17 @@ export default class Login extends Component {
                         localRightPassword: obj["password"],
                         localUsername: obj["name"],
                         localId: obj["id"],
-                        emailNotFound: false,
                         localRoleName: roleName
                     }, () => {this.checkCredentials()}
                 )
-            }    
+            }   
         }   
         )
 
-        if (this.state.emailNotFound) {
-            this.setState({localHasLoginFailed:true})
+        if (!emailFound) {
+            this.setState({localHasLoginFailed: true})
         }
+
     }
 
     render() {

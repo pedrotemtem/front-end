@@ -56,8 +56,8 @@ export default class Navbar extends Component {
         <div>
             <AppBar position="static" className="appbar">
                 <Toolbar className="toolbar">
-                    <Typography variant="h6" component="div" sx={{flexGrow:1}}>
-                        Tracing Portal
+                    <Typography variant="h6" component="div" sx={{flexGrow:1}} onClick={() => this.handleMenuClick("/welcome/")}>
+                      Tracing Portal
                     </Typography>
                     <Stack direction="row" spacing={2}>
                         {this.NavbarDisposition()}
