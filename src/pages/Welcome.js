@@ -30,8 +30,7 @@ export default class Welcome extends Component {
     render() {
         return (
             <div className="bigDiv">
-                <div className="welcome"> Welcome back, <span className="violetBold">{this.props.username}</span>!
-                <p className="role">Your current role: <span className="violetBold">{this.props.roleName}</span></p></div>
+                <div className="welcome"> Welcome back, <span className="violetBold">{this.props.username}</span>!</div>
                 <div className="redirectId">
                 <div className="time">Today is {this.displayDate()}</div><br/>
                 <div className="time"> Right now is: <Clock format={"HH:mm:ss"} ticking={true} timezone={"Europe/Lisbon"} /></div>

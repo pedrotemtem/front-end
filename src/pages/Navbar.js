@@ -11,6 +11,7 @@ export default class Navbar extends Component {
         this.NavbarDisposition = this.NavbarDisposition.bind(this)
         this.handleLoginClick = this.handleLoginClick.bind(this)
         this.handleMenuClick = this.handleMenuClick.bind(this)
+        this.secondBar = this.secondBar.bind(this)
     }
 
     NavbarDisposition() {
@@ -20,10 +21,9 @@ export default class Navbar extends Component {
         if (this.props.isLoggedIn) {
             return (
                 <>
-                    <Button disabled={true} color="inherit"><span className="userMail">{this.props.email} (id: {this.props.userID})</span></Button>
                     {adminStatus && <Button color="inherit" variant="outlined" onClick={() => this.handleMenuClick("/metrics/")}><Link className="navLink" to="/metrics/">Metrics</Link></Button>}
                     <Button color="inherit" variant="outlined" onClick={() => this.handleMenuClick("/detections/")}><Link className="navLink" to="/detections/">Detections</Link></Button>
-                    <Button color="inherit" variant="outlined" onClick={this.handleLoginClick}><Link className="navLink" to="/login/">Log Out</Link></Button>
+                    <Button color="error" variant="contained" onClick={this.handleLoginClick}><Link className="navLink" to="/login/">Log Out</Link></Button>
                 </>
             )
         } else {
@@ -50,6 +50,21 @@ export default class Navbar extends Component {
         }
     }
 
+    secondBar() {
+
+        if (this.props.isLoggedIn) {
+            return (
+                <div className={"second-bar"}>
+                    <span className="second-bar-span">Logged in as {this.props.username} (ID: {this.props.userID} - {this.props.email}), with a role of {this.props.roleName}</span>
+                </div>
+            )
+        }
+
+        
+    }
+
+
+
     render() {
 
         return (
@@ -64,6 +79,7 @@ export default class Navbar extends Component {
                     </Stack>
                 </Toolbar>
             </AppBar>
+            {this.secondBar()}
             <Outlet/>
         </div>
     )

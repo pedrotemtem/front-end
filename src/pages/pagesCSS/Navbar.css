@@ -24,3 +24,19 @@
 .userMail:first-letter {
     text-transform: capitalize;
 }
+
+.second-bar {
+    text-align: center;
+    margin-top: -15px;
+    background-color: #FFD6DC;
+    height: 45px;
+    line-height: 45px;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: auto;
+}
+
+.second-bar-span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
