@@ -166,7 +166,7 @@ export default function FullFeaturedCrudGrid(props) {
     {
         field: 'id',
         headerName: 'Audit ID',
-        width: 110,
+        width: 90,
     },
 
     {
@@ -178,9 +178,20 @@ export default function FullFeaturedCrudGrid(props) {
     {
         field: 'parameter',
         headerName: 'Parameter',
-        width: 110,
+        width: 100,
     },
-
+    {
+        field: "oldValue",
+        headerName: "Previous Value",
+        width: 110,
+        sortable: false,
+    },
+    {
+      field: "newValue",
+      headerName: "New Value",
+      width: 110,
+      sortable: false,
+    },
     {
         field: 'detectionId',
         headerName: 'Detection Id',
@@ -190,7 +201,7 @@ export default function FullFeaturedCrudGrid(props) {
     {
         field: 'userId',
         headerName: 'User Id',
-        width: 110,
+        width: 85,
     },
 
     ];
@@ -401,7 +412,7 @@ export default function FullFeaturedCrudGrid(props) {
               />
       </Box>
 
-          <Box className="info-table" sx={{ height: 400, width: '35%', minWidth:600 ,marginLeft: "auto", marginRight: "auto" }}>
+          <Box className="info-table" sx={{ height: 400, width: '80%', minWidth: 450, maxWidth: 800,marginLeft: "auto", marginRight: "auto"}}>
             <DataGridPro
                 rows={rowsAudit["rowsAudit"]}
                 columns={columnsAudit}

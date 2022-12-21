@@ -94,7 +94,7 @@ export default class Login extends Component {
                 {/* // if this.state.hasLoginFailed is true, then the second part is returned
                     the same logic applies for this.state.showSuccessMessage */}
                 
-                {this.state.localHasLoginFailed && <div className="invalidAlert"><Alert severity="error" variant="filled"><AlertTitle>Something went wrong...</AlertTitle>
+               {this.state.localHasLoginFailed && <div className="invalidAlert"><Alert severity="error" variant="filled"><AlertTitle>Something went wrong...</AlertTitle>
                Please check your credentials and try again! <strong>If the error persists, contact your manager</strong></Alert></div>}
 
                 <br />

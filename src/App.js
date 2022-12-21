@@ -55,11 +55,12 @@ class App extends Component {
   
   render() {
     const LoginWithNavigation = withNavigation(Login);
+    const NavbarWithNavigation = withNavigation(Navbar)
     return (
       <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Navbar {...this.state} stateChanger={this.setNewState}/>}>
+          <Route path="/" element={<NavbarWithNavigation {...this.state} stateChanger={this.setNewState}/>}>
             <Route index element={<LoginWithNavigation {...this.state} stateChanger = {this.setNewState}/>} />
             <Route path="/login/" element={<LoginWithNavigation {...this.state} stateChanger = {this.setNewState}/>} />
             <Route path="/welcome/" element={this.state.isLoggedIn ? <Welcome {...this.state}/> : <Navigate replace to={"/login"} />} />

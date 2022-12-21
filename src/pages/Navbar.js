@@ -8,25 +8,39 @@ export default class Navbar extends Component {
     constructor(props) {
         super(props);
 
-        this.LoginButton = this.LoginButton.bind(this)
-        this.handleClick = this.handleClick.bind(this)
+        this.NavbarDisposition = this.NavbarDisposition.bind(this)
+        this.handleLoginClick = this.handleLoginClick.bind(this)
+        this.handleMenuClick = this.handleMenuClick.bind(this)
     }
 
-    LoginButton() {
+    NavbarDisposition() {
+
+        var adminStatus = this.props.roleName.toUpperCase() === "ADMIN";
+
         if (this.props.isLoggedIn) {
-            return <>
-            <Button disabled={true} color="inherit"><span className="userMail">{this.props.email} (id: {this.props.userID})</span></Button>
-            <Button color="inherit" variant="outlined" onClick={this.handleClick}><Link className="navLink" to="/login">Log Out</Link></Button>
-            </>
+            return (
+                <>
+                    <Button disabled={true} color="inherit"><span className="userMail">{this.props.email} (id: {this.props.userID})</span></Button>
+                    {adminStatus && <Button color="inherit" variant="outlined" onClick={() => this.handleMenuClick("/metrics/")}><Link className="navLink" to="/metrics/">Metrics</Link></Button>}
+                    <Button color="inherit" variant="outlined" onClick={() => this.handleMenuClick("/detections/")}><Link className="navLink" to="/detections/">Detections</Link></Button>
+                    <Button color="inherit" variant="outlined" onClick={this.handleLoginClick}><Link className="navLink" to="/login/">Log Out</Link></Button>
+                </>
+            )
         } else {
-            return <>
+            return (
+            <>
             <Button color="inherit"  variant ="outlined" onClick={this.handleClick}><Link className="navLink" to="/login">Log in</Link></Button>
             </>
+            )
         }
+    }
+
+    handleMenuClick(path) {
+        this.props.navigate(path)
     }
     
     
-    handleClick() {
+    handleLoginClick() {
         if (this.props.isLoggedIn) {
             this.props.stateChanger(
                 {
@@ -46,7 +60,7 @@ export default class Navbar extends Component {
                         Tracing Portal
                     </Typography>
                     <Stack direction="row" spacing={2}>
-                        {this.LoginButton()}
+                        {this.NavbarDisposition()}
                     </Stack>
                 </Toolbar>
             </AppBar>
