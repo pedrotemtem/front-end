@@ -26,7 +26,7 @@ class App extends Component {
       userID: 0,
       hasLoginFailed: false,
       isLoggedIn: false,
-      roleName: 0,
+      roleName: "",
       userInfo : {}
     }
 
@@ -64,7 +64,7 @@ class App extends Component {
             <Route path="/login/" element={<LoginWithNavigation {...this.state} stateChanger = {this.setNewState}/>} />
             <Route path="/welcome/" element={this.state.isLoggedIn ? <Welcome {...this.state}/> : <Navigate replace to={"/login"} />} />
             <Route path="/detections/" element={this.state.isLoggedIn ? <Detections {...this.state}/> : <Navigate replace to={"/login"} />} />
-            <Route path="/metrics" element={(this.state.isLoggedIn && this.state.roleName.toUpperCase() === "ADMIN") ? <Metrics {...this.state}/> : <Navigate replace to={"/login"}/> }
+            <Route path="/metrics/" element={(this.state.isLoggedIn && this.state.roleName.toUpperCase() === "ADMIN") ? <Metrics {...this.state}/> : <Navigate replace to={"/login"} />} />
             <Route path="*" element={<NoPage/>} />
           </Route>
         </Routes>

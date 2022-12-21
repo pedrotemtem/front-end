@@ -21,7 +21,7 @@ export default function FullFeaturedCrudGrid(props) {
   const [rows = [], setRows] =useState();
   const [rows2= [], setRows2] = useState();
 
-  var initialAudit = {rowsAudit: {id: 0, dateTime: null, parameter: null, marketplaceDetectionsId: 0, analystsId: 0}}
+  var initialAudit = {rowsAudit: {id: 0, dateTime: null, parameter: null, detectionId: 0, userId: 0}}
 
   const [rowModesModel, setRowModesModel] = React.useState({});
   const [rowsId= [], setRowsId] = useState();
@@ -33,12 +33,12 @@ export default function FullFeaturedCrudGrid(props) {
 
   var rowsIdforAudit= 0;
 
-  var rowToSave = {id: 0, state: "", status: "", reasonCode: "", analystId: 2}
+  var rowToSave = {id: 0, state: "", status: "", reasonCode: "", userId: 2}
 
   var newStatus= ""
   var newState= ""
   var newReasonCode=""
-  var analystId= props.analystID
+  var userId= props.userID
 
   /* only show the update database button when there are selected rows */
   var areRowsSelected = false
@@ -52,7 +52,7 @@ export default function FullFeaturedCrudGrid(props) {
  }
 
   const getDetectionsByID = async (id) => {
-    const response = await fetch(`http://localhost:8008/api/marketplacedetections/getByAccount/${id}`)
+    const response = await fetch(`http://localhost:8008/api/detections/getByAccount/${id}`)
     .then((response) => response.json());
 
     setRows(response)
@@ -60,7 +60,7 @@ export default function FullFeaturedCrudGrid(props) {
   }
 
   const getAllAccounts = () => {
-    fetch("http://localhost:8008/api/account/getAll")
+    fetch("http://localhost:8008/api/accounts/getAll")
       .then((response) => response.json())
       .then((data) => {
         setAccountsList(data)
@@ -109,6 +109,7 @@ export default function FullFeaturedCrudGrid(props) {
         if (detect2.state === detect.state) {
             newState = ""
         }
+
         else{ newState= detect.state}
 
         if (detect2.status === detect.status) {
@@ -121,9 +122,11 @@ export default function FullFeaturedCrudGrid(props) {
         }
         else{ newReasonCode= detect.reasonCode;}
         
-        rowToSave = {id: element, state: newState, status: newStatus, reasonCode: newReasonCode, analystId: analystId};
+        rowToSave = {id: element, state: newState, status: newStatus, reasonCode: newReasonCode, userId: userId};
 
-        fetch('http://localhost:8008/api/marketplacedetections/update', {
+        console.log(rowToSave)
+
+        fetch('http://localhost:8008/api/detections/update', {
             method: 'PUT',
             body: JSON.stringify(rowToSave),
             headers: {
@@ -131,6 +134,9 @@ export default function FullFeaturedCrudGrid(props) {
               "Access-Control-Allow-Origin": "*",
             }
         })
+
+        // to avoid creating an audit record of an attribute that was already recorded in the audit table
+        setRows(rows2);
     });  
 
 
@@ -176,14 +182,14 @@ export default function FullFeaturedCrudGrid(props) {
     },
 
     {
-        field: 'marketplaceDetectionsId',
+        field: 'detectionId',
         headerName: 'Detection Id',
         width: 110,
     },
     
     {
-        field: 'analystsId',
-        headerName: 'Analyst Id',
+        field: 'userId',
+        headerName: 'User Id',
         width: 110,
     },
 
@@ -248,7 +254,11 @@ export default function FullFeaturedCrudGrid(props) {
         sortable: false,
         width: 160,
     },
-
+    {
+        field:"searchTerm",
+        headerName: "Brand Track",
+        width: 100,
+    },
     {
         field: 'status',
         headerName: 'Status',
@@ -375,7 +385,7 @@ export default function FullFeaturedCrudGrid(props) {
               processRowUpdate={processRowUpdate}
               onCellClick={detectionRow => {
                   rowsIdforAudit = detectionRow.id;
-                  fetch(`http://localhost:8008/api/audit/getByMarketplaceDetection/${rowsIdforAudit}`)
+                  fetch(`http://localhost:8008/api/audit/getByDetection/${rowsIdforAudit}`)
                       .then(res => res.json())
                       .then(
                           (detectionAudit) => {
