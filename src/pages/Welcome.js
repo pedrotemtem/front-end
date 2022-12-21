@@ -34,7 +34,6 @@ export default class Welcome extends Component {
                 <div className="redirectId">
                 <div className="time">Today is {this.displayDate()}</div><br/>
                 <div className="time"> Right now is: <Clock format={"HH:mm:ss"} ticking={true} timezone={"Europe/Lisbon"} /></div>
-                <div className="idDiv">Please note that any changes you do will be recorded with your <span className="analystId">user ID</span></div>
                 </div>
 
                 <img src={image} alt="magnifying glass over web pages" className="loginImage"/>

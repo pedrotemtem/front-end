@@ -347,7 +347,7 @@ export default function FullFeaturedCrudGrid(props) {
     <div className='flex-container'>
       <div className="flex-item-1">
         <Box sx={{minWidth: 180}} className="account-selector">
-          <InputLabel className="account-label">Customer Account:</InputLabel>
+          <InputLabel sx={{fontWeight: "bold"}} className="account-label">Customer Account:</InputLabel>
           <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"

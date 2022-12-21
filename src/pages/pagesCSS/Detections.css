@@ -9,9 +9,8 @@
 
 .account-label {
     margin-bottom: 10px;
-    font-size: 18px;
-    color: purple;
-    font-weight: bold;
+    color: purple !important;
+    font-weight: bold !important;
 }
 
 .info-table {
@@ -36,4 +35,3 @@
 .flex-item-1 {
     max-width: 80%;
 }
-

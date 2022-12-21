@@ -28,15 +28,18 @@
 .second-bar {
     text-align: center;
     margin-top: -15px;
+    margin-bottom: 15px;
     background-color: #FFD6DC;
     height: 45px;
     line-height: 45px;
     font-family: Arial, Helvetica, sans-serif;
     overflow: auto;
+    border: 3px dotted red;
 }
 
 .second-bar-span {
     display: inline-block;
     vertical-align: middle;
     line-height: normal;
+    font-size: 18px;
 }
