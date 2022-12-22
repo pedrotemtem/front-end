@@ -2,7 +2,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import { useEffect, useState } from 'react';
@@ -31,7 +30,7 @@ export default function FullFeaturedCrudGrid(props) {
   const [currentAccount, setCurrentAccount] = useState("");
   const [currentAccountID, setCurrentAccountID] = useState(0);
 
-  var rowsIdforAudit= 0;
+  const [rowsIdforAudit, setRowsIdforAudit] = useState(0);
 
   var rowToSave = {id: 0, state: "", status: "", reasonCode: "", userId: 2}
 
@@ -135,14 +134,9 @@ export default function FullFeaturedCrudGrid(props) {
             }
         })
 
-        // to avoid creating an audit record of an attribute that was already recorded in the audit table
-        setRows(rows2);
+        setRows2(rows);
+        
     });  
-
-
-  const handleDeleteClick = (id) => () => {
-    setRows(rows.filter((row) => row.id !== id));
-  };
 
   const handleCancelClick = (id) => () => {
     setRowModesModel({
@@ -192,12 +186,6 @@ export default function FullFeaturedCrudGrid(props) {
       width: 110,
       sortable: false,
     },
-    {
-        field: 'detectionId',
-        headerName: 'Detection Id',
-        width: 110,
-    },
-    
     {
         field: 'userId',
         headerName: 'User Id',
@@ -389,8 +377,8 @@ export default function FullFeaturedCrudGrid(props) {
               onRowEditStop={handleRowEditStop}
               processRowUpdate={processRowUpdate}
               onCellClick={detectionRow => {
-                  rowsIdforAudit = detectionRow.id;
-                  fetch(`http://localhost:8008/api/audit/getByDetection/${rowsIdforAudit}`)
+                  setRowsIdforAudit(detectionRow.id);
+                  fetch(`http://localhost:8008/api/audit/getByDetection/${detectionRow.id}`)
                       .then(res => res.json())
                       .then(
                           (detectionAudit) => {
@@ -405,6 +393,8 @@ export default function FullFeaturedCrudGrid(props) {
               experimentalFeatures={{ newEditingApi: true }}
               />
       </Box>
+
+      <div className='audit-history-tag'>Audit History of detection: {rowsIdforAudit}</div>
 
           <Box className="info-table" sx={{ height: 400, width: '80%', minWidth: 450, maxWidth: 800,marginLeft: "auto", marginRight: "auto"}}>
             <DataGridPro

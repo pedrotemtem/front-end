@@ -19,6 +19,7 @@
     height: 75px;
     line-height: 75px;
     background-color:#F0E1D1;
+    border-radius: 100px;
 }
 
 .welcome-time {
@@ -29,6 +30,7 @@
     align-content: center;
     flex-direction: column;
     background-color: #ECD6C1;
+    border-radius: 80px;
 }
 
 .violetBold {
