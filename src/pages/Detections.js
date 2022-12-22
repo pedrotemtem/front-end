@@ -329,13 +329,7 @@ export default function FullFeaturedCrudGrid(props) {
             className="textPrimary"
             onClick={handleEditClick(id)}
             color="inherit"
-          />,
-          <GridActionsCellItem
-            icon={<DeleteIcon />}
-            label="Delete"
-            onClick={handleDeleteClick(id)}
-            color="inherit"
-          />,
+          />
         ];
       },
     },
