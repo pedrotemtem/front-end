@@ -21,7 +21,7 @@ export default class Welcome extends Component {
 
         return (
             <>
-            {month + " "+day+", "+year}
+            {month + " "+ day+", "+year}
             </>
         )
         
@@ -29,20 +29,19 @@ export default class Welcome extends Component {
 
     render() {
         return (
-            <div className="bigDiv">
-                <div className="welcome"> Welcome back, <span className="violetBold">{this.props.username}</span>!</div>
-                <div className="redirectId">
-                <div className="time">Today is {this.displayDate()}</div><br/>
-                <div className="time"> Right now is: <Clock format={"HH:mm:ss"} ticking={true} timezone={"Europe/Lisbon"} /></div>
+
+            <div className="wrapper">
+                <div className="welcome-box welcome-name">
+                    Welcome back, <span className="violetBold">{this.props.username}</span>!
                 </div>
-
-                <img src={image} alt="magnifying glass over web pages" className="loginImage"/>
+                <div className="welcome-box welcome-time">
+                    <span>Today is {this.displayDate()}</span>
+                    <br />
+                    <span>Right now is: <Clock format={"HH:mm:ss"} ticking={true} timezone={"Europe/Lisbon"} /></span>
+                </div>
             </div>
-
-
+            
 
         )
     }
-
-
 }
