@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import "./pagesCSS/Welcome.css"
-import image from "./images/loginImage.jpeg";
 import Clock from "react-live-clock";
 
 export default class Welcome extends Component {
