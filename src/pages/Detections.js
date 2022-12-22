@@ -123,8 +123,6 @@ export default function FullFeaturedCrudGrid(props) {
         
         rowToSave = {id: element, state: newState, status: newStatus, reasonCode: newReasonCode, userId: userId};
 
-        console.log(rowToSave)
-
         fetch('http://localhost:8008/api/detections/update', {
             method: 'PUT',
             body: JSON.stringify(rowToSave),
