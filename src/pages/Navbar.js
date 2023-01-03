@@ -55,7 +55,7 @@ export default class Navbar extends Component {
         if (this.props.isLoggedIn) {
             return (
                 <div className={"second-bar"}>
-                    <span className="second-bar-span">Logged in as <span className="violetBold">{this.props.username}</span> (ID: {this.props.userID} - {this.props.email}), with a role of <span className="violetBold underline-text">{this.props.roleName}</span></span>
+                    <span className="second-bar-span">Logged in as <span className="violetBold">{this.props.username}</span> (ID: {this.props.userID} - {this.props.email}), with a role of <span className="violetBold">{this.props.roleName}</span></span>
                 </div>
             )
         }

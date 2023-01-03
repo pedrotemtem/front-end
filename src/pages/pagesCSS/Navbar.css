@@ -15,23 +15,13 @@
     color: white;
 }
 
-.userMail {
-    font-size: 13px;
-    color: white;
-    text-transform: lowercase;
-}
-
-.userMail:first-letter {
-    text-transform: capitalize;
-}
-
 .second-bar {
     text-align: center;
     margin-top: -15px;
     margin-bottom: 30px;
     background-color: #FFD6DC;
-    height: 45px;
-    line-height: 45px;
+    height: 40px;
+    line-height: 40px;
     font-family: Arial, Helvetica, sans-serif;
     overflow: auto;
     border: 3px dotted red;
