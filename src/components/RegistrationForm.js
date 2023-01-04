@@ -125,7 +125,7 @@ export default function RegistrationForm() {
   const handleBrandChange = (event) => {
     setBrand(event.target.value)
   };
-
+  
   return (
     <div>
       <Button variant="contained" color="success" size="large" onClick={handleClickOpen}>

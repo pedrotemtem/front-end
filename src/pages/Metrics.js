@@ -14,7 +14,12 @@ import {
     registerables
 } from "chart.js";
 import {Bar} from "react-chartjs-2";
-import DatePicker from "react-date-picker";
+
+import TextField from '@mui/material/TextField';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 
 import "./pagesCSS/Metrics.css";
 
@@ -24,7 +29,7 @@ ChartJS.register(...registerables);
 export default function Metrics (props) {
     const [date, setDate] = useState(new Date());
     const [timeInterval, setTimeInterval] = useState(7);
-
+    
     const getXLabels = () => {
         let internalDate = new Date(date);
         let day;
@@ -48,6 +53,7 @@ export default function Metrics (props) {
 
         return xLabels
     }
+    
 
     const numDetectionsOptions = {
         responsive: true,
@@ -56,11 +62,34 @@ export default function Metrics (props) {
                 position: "bottom",
             },
             title: {
-                display: true,
-                text: "Number of detections harvested by day"
+                display: false,
+                text: "Number of detections harvested by day",
+                align: "center",
             }
-        }
+        },
     }
+
+    const numFailuresOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "bottom",
+            },
+            title: {
+                display: false,
+                text: "Number of failures by day",
+            }
+        },
+        scales: {
+            x: {
+                stacked: true,
+            },
+            y: {
+                stacked: true,
+            },
+        },
+    }
+
 
     const numDetectionsData = {
         labels: getXLabels(),
@@ -68,21 +97,35 @@ export default function Metrics (props) {
             {
                 label: "Number of detections",
                 data: [3,6,9,12,10,24,10,10,2],
-                backgroundColor: "purple",
+                backgroundColor: "#DD929D",
                 borderColor: "white",
                 borderWidth: 2,
             }
         ]
     }
 
+    const numFailuresData = {
+        labels: getXLabels(),
+        datasets: [
+            {
+                label: "400 Bad Request",
+                data: [3,2,4,6,3,6,7,2,5,6,2,6,7,3],
+            },
+            {
+                label: "500 Internal Server Error",
+                data: [2,5,7,7,3,2,5,8,4,2,2,6,8,3],
+            }
+
+        ]
+    }
+
     const timeIntervalSetter = (event) => {
-        setTimeInterval(event.target.value)
+        setTimeInterval(event.target.value);
     }
 
 
     return(
         <>
-
             <Box sx={{minWidth: 180}} className="time-interval-box">
             <InputLabel sx={{fontWeight: "bold"}} className="account-label">Time Interval from selected date:</InputLabel>
             <Select
@@ -95,22 +138,31 @@ export default function Metrics (props) {
             <MenuItem key={7} value={7}>7 days</MenuItem>
             <MenuItem key={14} value={14}>14 days</MenuItem>
             <MenuItem key={30} value={30}>30 days </MenuItem>
+            <MenuItem key={60} value={60}>60 days</MenuItem>
         </Select> <br /><br />
+
+        <LocalizationProvider dateAdapter={AdapterDayjs} >
         <DatePicker
-                calendarAriaLabel="Toggle Calendar"
-                clearAriaLabel="Clear value"
-                dayAriaLabel="Day"
-                monthAriaLabel="Month"
-                yearAriaLabel="Year"
-                nativeInputAriaLabel="Date"
-                value = {date}
-                onChange = {setDate}
+            className="date-picker"
+            label="Initial Date"
+            value={date}
+            onChange={(newDate) => {
+                setDate(newDate);
+            }}
+            inputFormat="DD/MM/YYYY"
+            renderInput={(params) => <TextField {...params} />}
             />
+        </LocalizationProvider>
+        
         </Box>
         <br></br>
-            <div style={{}}>
-                <div></div>
-            <Bar options={numDetectionsOptions} data={numDetectionsData} />
+            <div>
+                <div className="title"><h3>Number of detections harvested by day</h3></div>
+                <div className="plot"><Bar options={numDetectionsOptions} data={numDetectionsData}/></div>
+            </div>
+            <div>
+                <div className="title"><h3>Number of harvest failures by day</h3></div>
+                <div className="plot"><Bar options={numFailuresOptions} data={numFailuresData}></Bar></div>
             </div>
 
         </>
