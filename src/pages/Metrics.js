@@ -54,6 +54,7 @@ export default function Metrics (props) {
         return xLabels
     }
     
+    const [xLabels, setXLabels] = useState(getXLabels);
 
     const numDetectionsOptions = {
         responsive: true,
@@ -121,6 +122,15 @@ export default function Metrics (props) {
 
     const timeIntervalSetter = (event) => {
         setTimeInterval(event.target.value);
+        updateXLabelsState();
+    }
+
+    // creates a new copy oh the xLabels array (in a new memory position)
+    // react will check that state was updated (due to the memory position being changed) ...
+    // ... and rerender the component
+    const updateXLabelsState = () => {
+        let newXLabelsArray = getXLabels().slice();
+        setXLabels(newXLabelsArray);
     }
 
 
@@ -148,6 +158,7 @@ export default function Metrics (props) {
             value={date}
             onChange={(newDate) => {
                 setDate(newDate);
+                updateXLabelsState();
             }}
             inputFormat="DD/MM/YYYY"
             renderInput={(params) => <TextField {...params} />}
