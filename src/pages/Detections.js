@@ -51,7 +51,7 @@ export default function FullFeaturedCrudGrid(props) {
  }
 
   const getDetectionsByID = async (id) => {
-    const response = await fetch(`http://localhost:8008/api/detections/getByAccount/${id}`)
+    const response = await fetch(`http://localhost:8008/api/detections/account/${id}`)
     .then((response) => response.json());
 
     setRows(response)
@@ -59,7 +59,7 @@ export default function FullFeaturedCrudGrid(props) {
   }
 
   const getAllAccounts = () => {
-    fetch("http://localhost:8008/api/accounts/getAll")
+    fetch("http://localhost:8008/api/accounts/")
       .then((response) => response.json())
       .then((data) => {
         setAccountsList(data)
@@ -376,7 +376,7 @@ export default function FullFeaturedCrudGrid(props) {
               processRowUpdate={processRowUpdate}
               onCellClick={detectionRow => {
                   setRowsIdforAudit(detectionRow.id);
-                  fetch(`http://localhost:8008/api/audit/getByDetection/${detectionRow.id}`)
+                  fetch(`http://localhost:8008/api/audit/${detectionRow.id}`)
                       .then(res => res.json())
                       .then(
                           (detectionAudit) => {

@@ -48,7 +48,7 @@ export default class Login extends Component {
     async getRoleName(roleId) {
 
         // returns a promise
-        var response = await fetch("http://localhost:8008/api/roles/getRoleName/"+roleId)
+        var response = await fetch("http://localhost:8008/api/roles/"+roleId)
 
         // gets the value of the promise (as text)
         var roleName = await response.text();

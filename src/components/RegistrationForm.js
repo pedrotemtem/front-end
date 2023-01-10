@@ -77,7 +77,7 @@ export default function RegistrationForm() {
 
   // to load existing brands the first time this component is rendered
   React.useEffect(() => {
-    fetch("http://localhost:8008/api/accounts/getAll")
+    fetch("http://localhost:8008/api/accounts/")
     .then((response) => response.json())
     .then((data) => {
         setBrandList(data)
@@ -110,7 +110,7 @@ export default function RegistrationForm() {
             alert("Congrats! Your brand was added!")
 
             // to ensure that the brandList state is up to date with the new brand
-            fetch("http://localhost:8008/api/accounts/getAll")
+            fetch("http://localhost:8008/api/accounts/")
                 .then((response) => response.json())
                 .then((data) => {
                     setBrandList(data)

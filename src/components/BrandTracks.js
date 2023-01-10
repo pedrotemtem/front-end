@@ -88,7 +88,7 @@ export default function BrandTracks(props) {
 
     setOpen(true);
     setBrandTrack("");
-    fetch(`http://localhost:8008/api/brandtracks/getByAccount/${props.accountId}`)
+    fetch(`http://localhost:8008/api/brandtracks/${props.accountId}`)
     .then((response) => response.json())
     .then((data) => {
         setBrandTrackList(data)
@@ -129,7 +129,7 @@ export default function BrandTracks(props) {
             }
         })
 
-        fetch(`http://localhost:8008/api/brandtracks/getByAccount/${props.accountId}`)
+        fetch(`http://localhost:8008/api/brandtracks/${props.accountId}`)
         .then((response) => response.json())
         .then((data) => {
             setBrandTrackList(data)

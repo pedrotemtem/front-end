@@ -168,7 +168,7 @@ export default function Metrics (props) {
         
         endDate = endDate.getFullYear() + "-" + (endDate.getMonth()+1) + "-" + endDate.getDate() 
 
-        var response = await fetch("http://localhost:8008/api/detections/numberByDay/"+ initialDate + "/" + endDate);
+        var response = await fetch("http://localhost:8008/api/detections/"+ initialDate + "/" + endDate);
 
         var data = await response.text();
 
@@ -339,15 +339,24 @@ export default function Metrics (props) {
         </Box>
         <br></br>
             <div>
-                <div className="title"><h3>Number of detections harvested by day</h3></div>
+                <div className="title">Number of detections harvested by day</div>
                 <div className="plot"><Bar options={numDetectionsOptions} data={numDetectionsData}/></div>
             </div>
             <div>
-                <div className="title"><h3>Number of harvest failures by day</h3><p>&lt; FAKE DATA &gt;</p></div>
+                <div className="title">Number of harvest failures by day</div>
+                <p>&lt; FAKE DATA &gt;</p>
                 <div className="plot"><Bar options={numFailuresOptions} data={numFailuresData}></Bar></div>
             </div>
             <div>
-                <div className="title"><h3>Harvest Processes Metrics (Time in Seconds)</h3><p>&lt; FAKE DATA &gt;</p></div>
+                <div className="title">Harvest Processes Metrics (Time in Seconds)</div>
+                <p>&lt; FAKE DATA &gt;</p>
+                <div className="ag-theme-alpine" style={{maxWidth: 450, height: 400, marginLeft: "auto", marginRight: "auto"}}>
+                    <AgGridReact rowData={harvestMetricsData} columnDefs={harvestMetricsColumns} defaultColDef={defaultColDef} />
+                </div>
+            </div>
+            <div>
+                <div className="title">REST API Metrics (Time in Seconds)</div>
+                <p>&lt; FAKE DATA &gt;</p>
                 <div className="ag-theme-alpine" style={{maxWidth: 450, height: 400, marginLeft: "auto", marginRight: "auto"}}>
                     <AgGridReact rowData={harvestMetricsData} columnDefs={harvestMetricsColumns} defaultColDef={defaultColDef} />
                 </div>
