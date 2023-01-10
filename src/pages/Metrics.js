@@ -16,10 +16,10 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { AgGridReact } from 'ag-grid-react';
 
-import "./pagesCSS/Metrics.css";
-
 import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-material.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
+
+import "./pagesCSS/Metrics.css";
 
 
 // to register all the chart.js elements imported
@@ -130,11 +130,11 @@ export default function Metrics (props) {
         datasets: [
             {
                 label: "400 Bad Request",
-                data: [3,2,4,6,3,6,7,2,5,6,2,6,7,3],
+                data: [3,2,4,6,3,6,7,2,5,6,2,6,7,3,2,12,4,6,7,4,6,3,2,4,7,3,2,6,7,3,2,5,6,3,3],
             },
             {
                 label: "500 Internal Server Error",
-                data: [2,5,7,7,3,2,5,8,4,2,2,6,8,3],
+                data: [2,5,7,7,3,2,5,8,4,2,2,6,8,3,3,4,5,6,7,4,3,2,4,7,5,9,2,5,3,2,4,6,8,9],
             }
 
         ]
@@ -343,12 +343,12 @@ export default function Metrics (props) {
                 <div className="plot"><Bar options={numDetectionsOptions} data={numDetectionsData}/></div>
             </div>
             <div>
-                <div className="title"><h3>Number of harvest failures by day</h3></div>
+                <div className="title"><h3>Number of harvest failures by day</h3><p>&lt; FAKE DATA &gt;</p></div>
                 <div className="plot"><Bar options={numFailuresOptions} data={numFailuresData}></Bar></div>
             </div>
             <div>
-                <div className="title"><h3>Harvest Processes Metrics (Time in Seconds)</h3></div>
-                <div className="ag-theme-material" style={{maxWidth: 450, height: 400, marginLeft: "auto", marginRight: "auto"}}>
+                <div className="title"><h3>Harvest Processes Metrics (Time in Seconds)</h3><p>&lt; FAKE DATA &gt;</p></div>
+                <div className="ag-theme-alpine" style={{maxWidth: 450, height: 400, marginLeft: "auto", marginRight: "auto"}}>
                     <AgGridReact rowData={harvestMetricsData} columnDefs={harvestMetricsColumns} defaultColDef={defaultColDef} />
                 </div>
             </div>
