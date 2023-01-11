@@ -21,9 +21,20 @@ export default class Navbar extends Component {
         if (this.props.isLoggedIn) {
             return (
                 <>
-                    {adminStatus && <Button color="inherit" variant="outlined" onClick={() => this.handleMenuClick("/metrics/")}><Link className="navLink" to="/metrics/">Metrics</Link></Button>}
-                    <Button color="inherit" variant="outlined" onClick={() => this.handleMenuClick("/detections/")}><Link className="navLink" to="/detections/">Detections</Link></Button>
-                    <Button color="error" variant="contained" onClick={this.handleLoginClick}><Link className="navLink" to="/login/">Log Out</Link></Button>
+                    {adminStatus && <Button color="inherit" style={window.location.pathname.replaceAll("/","") === "metrics" ? {backgroundColor: "#3883BC"}: {}} variant={window.location.pathname.replaceAll("/","") === "metrics" ? "contained" : "outlined"} onClick={() => this.handleMenuClick("/metrics/")}>
+                        <Link className="navLink" to="/metrics/">Metrics</Link>
+                        </Button>}
+                    <Button color="inherit" style={window.location.pathname.replaceAll("/","") === "detections" ? {backgroundColor: "#3883BC"}: {}} variant={window.location.pathname.replaceAll("/","") === "detections" ? "contained" : "outlined"} onClick={() => this.handleMenuClick("/detections/")}>
+                        <Link className="navLink" to="/detections/">Detections</Link>
+                        </Button>
+                    <Button color="error" variant="contained" onClick={this.handleLoginClick}>
+                        <Link className="navLink" to="/login/">Log Out</Link>
+                        </Button>
+                </>
+            )
+        } else if (window.location.pathname === "/login/" || window.location.pathname === "/login") {
+            return (
+                <>
                 </>
             )
         } else {

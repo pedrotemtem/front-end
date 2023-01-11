@@ -37,10 +37,6 @@
 
 }
 
-.ag-theme-alpine {
-    /* disable all borders */
-    --ag-borders: none;
-    /* then add back a border between rows */
-    --ag-borders-row: dashed 1px;
-    --ag-row-border-color: rgb(150, 150, 200);
-  }
+p {
+    text-align: center;
+}

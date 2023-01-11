@@ -20,6 +20,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 import "./pagesCSS/Metrics.css";
+import { useLocation } from "react-router-dom";
 
 
 // to register all the chart.js elements imported
